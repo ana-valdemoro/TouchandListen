@@ -1,0 +1,7 @@
+{
+  "name": "touchandlisten",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
