@@ -35,6 +35,21 @@
             "scripts": []
           },
           "configurations": {
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/dev/environment.dev.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "10mb"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -69,6 +84,9 @@
             "browserTarget": "app:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "app:build:dev"
+            },
             "production": {
               "browserTarget": "app:build:production"
             },
