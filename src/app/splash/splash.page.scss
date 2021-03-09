@@ -1,0 +1,22 @@
+ion-content{
+    --background: #331143;
+    //@-webkit-keyframes slide-top{0%{-webkit-transform:translateY(0);transform:translateY(0)}100%{-webkit-transform:translateY(-100px);transform:translateY(-100px)}}@keyframes slide-top{0%{-webkit-transform:translateY(0);transform:translateY(0)}100%{-webkit-transform:translateY(-20px);transform:translateY(-20px)}}
+    .logo-container{
+        //-webkit-animation:slide-top .5s cubic-bezier(.25,.46,.45,.94) both;animation:slide-top .5s cubic-bezier(.25,.46,.45,.94) both;
+        margin-top:calc(0.06*100vh);
+        img{
+            padding: 10px;
+            border-radius: 19px
+        }
+    }
+    h1{
+        color: #FFFFFF; 
+        font-style: italic;
+        font-size: 39px;
+        display: flex;
+        justify-content: center;
+    }
+    #ulpgc-logo{
+        margin-top:calc(0.1*100vh) ;
+    }
+}
