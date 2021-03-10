@@ -12,10 +12,9 @@ ion-content{
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        i{
-            margin: 15px 0px;
-        }
+        
         .fa-door-open{
+            margin: 15px 0px;
             color: #F2F2F2;
             font-size: calc(100vh*0.21);
         }
@@ -26,7 +25,7 @@ ion-content{
                 margin-top: 27px;
                 --padding-start: 10px;
                 width: var(--input-with);
-                height: 44.8px;
+                height:  44.8px;
             }
             ion-button{
                 --background: #F2F2F2;
@@ -38,7 +37,7 @@ ion-content{
         }
         p{
             font-size: 13px;
-            margin: 7px 0px;
+            margin: 3.5% 0px;
             span{
                 color:#AE37E5;
                 text-decoration: underline;
@@ -58,8 +57,24 @@ ion-content{
                 padding: 0px 4px;
             }
         }
-        .button-container{
+        .buttons-container{
             display: flex;
+            width: 45%;
+            justify-content: space-between;
+            div{
+                border-radius: 4px;
+                box-shadow: -4px -4px 8px rgba(255,255,255,0.4),
+                             inset 2px 2px 4px rgba(255,255,255,0.1),
+                             4px 4px 8px rgba(0,0,0, 0.8);
+            }
+            div:hover{
+                box-shadow: inset -4px -4px 4px rgba(255,255,255,0.1),
+                            inset 4px 4px 4px rgba(0,0,0, 0.3);
+            }
+            .fa-google, .fa-facebook{
+                font-size: calc(100vh*0.05);
+                padding: 10px;
+            }
         }
     }
 

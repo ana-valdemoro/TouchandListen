@@ -15,7 +15,9 @@ export class LoginPage implements OnInit {
     console.log("A resetear la contraseña");
   }
   onSignIn(){}
-  onSignUp(){}
+  onSignUp(){
+    console.log("Loguenado con X");
+  }
 
 
 }
