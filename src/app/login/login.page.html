@@ -1,9 +1,27 @@
 <ion-header class="ion-no-border">
   <ion-toolbar mode="ios">
-    <ion-title >Sign in</ion-title>
+    <ion-title>Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content >
+  <div class="container">
+    <i class="fas fa-door-open"></i>
+    <form>
+      <ion-input type="email" placeholder="Correo electrónico"></ion-input>
+      <ion-input type="password" placeholder="Contraseña"></ion-input>
+      <ion-button [disabled] = "true" (click)="onSignIn()">Iniciar sesión</ion-button>
+    </form>
+    <p>¿Olvidastes tu contraseña? <span (click) ="onResetPassword()">Recuperar contraseña</span></p>
+    <div class="separator-container">
+      <hr class="separator">
+      <p>O registrate con</p>
+      <hr class="separator">
+    </div>
+    <div class="button-container">
+      <div></div>
+      <div></div>
+    </div>
+    <p>¿Todavía no tienes una cuenta? <span (click) ="onSignUp()">Regístrate</span></p>
+  </div>
 </ion-content>
