@@ -10,11 +10,12 @@ ion-content{
     .container{
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+        height: 100%;
         
         .fa-door-open{
-            margin: 15px 0px;
+            margin-top: calc(100vh*0.045727) ;
             color: #F2F2F2;
             font-size: calc(100vh*0.21);
         }
@@ -22,7 +23,7 @@ ion-content{
             ion-input{
                 --background: #AE37E5;
                 border-radius: 4px;
-                margin-top: 27px;
+                margin-top:calc(100vh*0.043478);
                 --padding-start: 10px;
                 width: var(--input-with);
                 height:  44.8px;
@@ -41,6 +42,7 @@ ion-content{
             span{
                 color:#AE37E5;
                 text-decoration: underline;
+                padding-left: 2px;
             }
         }
         .separator-container{
