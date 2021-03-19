@@ -13,6 +13,6 @@ export class AppComponent {
     this.initializeApp();
   }
   initializeApp(){
-    this.router.navigateByUrl('splash');
+    this.router.navigateByUrl('login');
   }
 }

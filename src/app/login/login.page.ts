@@ -11,5 +11,13 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
+  onResetPassword(){
+    console.log("A resetear la contraseña");
+  }
+  onSignIn(){}
+  onSignUp(){
+    console.log("Loguenado con X");
+  }
+
 
 }
