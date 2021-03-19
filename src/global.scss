@@ -43,3 +43,19 @@
     font-weight: 400;
     color: #F2F2F2;
   }
+ion-content{
+    --background: #331143;
+    .container{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100%;
+    }
+  }
+  ion-toolbar{
+    --background: #331143;
+    ion-title{
+        font-size: 14px;
+    }
+}

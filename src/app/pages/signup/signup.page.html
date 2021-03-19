@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button mode="ios" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <i class="fas fa-door-open"></i>  
+    <form>
+      <ion-input type="text" placeholder="Nombre"></ion-input>
+      <ion-input type="text" placeholder="Apellidos"></ion-input>
+      <ion-input type="email" placeholder="Correo electrónico"></ion-input>
+      <ion-input type="password" placeholder="Contraseña"></ion-input>
+      <ion-button [disabled] = "true" (click)="onSignUp()">Crear cuenta</ion-button>
+    </form>
+    
+    <p>¿Ya tienes una cuenta? <span (click)="onSignIn()">Inicia sesión</span></p>
+  </div>  
+</ion-content>

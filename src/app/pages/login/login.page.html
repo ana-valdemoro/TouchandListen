@@ -12,16 +12,16 @@
       <ion-input type="password" placeholder="Contraseña"></ion-input>
       <ion-button [disabled] = "true" (click)="onSignIn()">Iniciar sesión</ion-button>
     </form>
-    <p>¿Olvidastes tu contraseña? <span (click) ="onResetPassword()">Recuperar contraseña</span></p>
+    <p>¿Olvidaste tu contraseña? <span (click) ="onResetPassword()">Recuperar contraseña</span></p>
     <div class="separator-container">
       <hr class="separator">
       <p>O registrate con</p>
       <hr class="separator">
     </div>
     <div class="buttons-container">
-      <div><i (click)="onSignUp()"class="fab fa-google"></i></div>
-      <div><i (click)="onSignUp()" class="fab fa-facebook"></i></div>
+      <div><i (click)="onSignInWith()"class="fab fa-google"></i></div>
+      <div><i (click)="onSignInWith()" class="fab fa-facebook"></i></div>
     </div>
-    <p>¿Todavía no tienes una cuenta? <span (click) ="onSignUp()">Regístrate</span></p>
+    <p>¿Todavía no tienes una cuenta? <span (click)="onSignUp()">Regístrate</span></p>
   </div>
 </ion-content>
