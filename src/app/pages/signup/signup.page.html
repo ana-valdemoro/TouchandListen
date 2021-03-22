@@ -10,13 +10,16 @@
 <ion-content>
   <div class="container">
     <i class="fas fa-door-open"></i>  
-    <form>
-      <ion-input type="text" placeholder="Nombre"></ion-input>
-      <ion-input type="text" placeholder="Apellidos"></ion-input>
-      <ion-input type="email" placeholder="Correo electrónico"></ion-input>
-      <ion-input type="password" placeholder="Contraseña"></ion-input>
-      <ion-button [disabled] = "true" (click)="onSignUp()">Crear cuenta</ion-button>
-    </form>
+    <div class="form">
+      <ion-input type="text" [(ngModel)]="user.name" placeholder="Nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.surname" placeholder="Apellidos"></ion-input>
+      <ion-input type="email" [(ngModel)]="user.email" placeholder="Correo electrónico"></ion-input>
+      <div class="input">
+        <input  [type]="showPassword ? 'text' : 'password'" [(ngModel)]="user.password" placeholder="Contraseña">
+        <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+      </div>  
+      <ion-button [disabled]="onCheckFields()" (click)="onSignUp()">Crear cuenta</ion-button>
+    </div>
     
     <p>¿Ya tienes una cuenta? <span (click)="onSignIn()">Inicia sesión</span></p>
   </div>  
