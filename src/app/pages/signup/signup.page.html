@@ -14,10 +14,7 @@
       <ion-input type="text" [(ngModel)]="user.name" placeholder="Nombre"></ion-input>
       <ion-input type="text" [(ngModel)]="user.surname" placeholder="Apellidos"></ion-input>
       <ion-input type="email" [(ngModel)]="user.email" placeholder="Correo electrónico"></ion-input>
-      <div class="input">
-        <input  [type]="showPassword ? 'text' : 'password'" [(ngModel)]="user.password" placeholder="Contraseña">
-        <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
-      </div>  
+      <app-password-input></app-password-input>
       <ion-button [disabled]="onCheckFields()" (click)="onSignUp()">Crear cuenta</ion-button>
     </div>
     
