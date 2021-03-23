@@ -9,8 +9,6 @@ import { IUser } from 'src/app/models/user.model';
 })
 export class SignupPage implements OnInit {
   user: IUser = {} as IUser;
-  passwordToggleIcon:string = "eye-off";
-  showPassword:boolean = false;
   constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
@@ -22,12 +20,8 @@ export class SignupPage implements OnInit {
   onCheckFields(){
     return !this.user.name || !this.user.surname || !this.user.email || !this.user.password;
   }
-  togglePassword():void{
-    this.showPassword = !this.showPassword ;
-    if(this.passwordToggleIcon == "eye-off"){
-      this.passwordToggleIcon = "eye";
-    }else{
-      this.passwordToggleIcon = "eye-off";
-    }
+  getPassword(event:string){
+    console.log(event);
+    this.user.password = event;
   }
 }

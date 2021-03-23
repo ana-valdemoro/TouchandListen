@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class PasswordInputComponent implements OnInit {
   passwordToggleIcon:string = "eye-off";
   showPassword:boolean = false;
+  @Output() passwordCompleted = new EventEmitter();
+  password:string = ""  ;
   constructor() { }
 
   ngOnInit() {}
@@ -19,5 +21,8 @@ export class PasswordInputComponent implements OnInit {
     }else{
       this.passwordToggleIcon = "eye-off";
     }
+  }
+  onBlurInput(){
+    this.passwordCompleted.emit(this.password);
   }
 }

@@ -9,7 +9,7 @@
     <i class="fas fa-door-open"></i>
     <form>
       <ion-input type="email" placeholder="Correo electrónico"></ion-input>
-      <ion-input type="password" placeholder="Contraseña"></ion-input>
+      <app-password-input></app-password-input>
       <ion-button [disabled] = "true" (click)="onSignIn()">Iniciar sesión</ion-button>
     </form>
     <p>¿Olvidaste tu contraseña? <span (click) ="onResetPassword()">Recuperar contraseña</span></p>
