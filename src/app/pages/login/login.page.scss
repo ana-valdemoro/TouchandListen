@@ -1,19 +1,6 @@
-ion-toolbar{
-    --background: #331143;
-    ion-title{
-        font-size: 14px;
-    }
-
-}
 ion-content{
-    --background: #331143;
+    
     .container{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
-        
         .fa-door-open{
             margin-top: calc(100vh*0.045727) ;
             color: #F2F2F2;
@@ -64,8 +51,9 @@ ion-content{
             width: 45%;
             justify-content: space-between;
             div{
+                background-color: #707070;
                 border-radius: 4px;
-                box-shadow: -4px -4px 8px rgba(255,255,255,0.4),
+                box-shadow: //-4px -4px 8px rgba(255,255,255,0.4),
                              inset 2px 2px 4px rgba(255,255,255,0.1),
                              4px 4px 8px rgba(0,0,0, 0.8);
             }

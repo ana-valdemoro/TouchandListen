@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button mode="ios" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <i class="fas fa-door-open"></i>  
+    <div class="form">
+      <ion-input type="text" [(ngModel)]="user.name" placeholder="Nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.surname" placeholder="Apellidos"></ion-input>
+      <ion-input type="email" [(ngModel)]="user.email" placeholder="Correo electrónico"></ion-input>
+      <app-password-input (passwordCompleted)="getPassword($event)"></app-password-input>
+      <ion-button [disabled]="onCheckFields()" (click)="onSignUp()">Crear cuenta</ion-button>
+    </div>
+    
+    <p>¿Ya tienes una cuenta? <span (click)="onSignIn()">Inicia sesión</span></p>
+  </div>  
+</ion-content>
