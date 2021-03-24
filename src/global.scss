@@ -59,3 +59,11 @@ ion-content{
         font-size: 14px;
     }
 }
+.modal-container {
+  --height: calc(100vh * 0.62);
+  --width: calc(100vw * 0.792);
+  --border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
