@@ -11,11 +11,17 @@ div{
         color: black;
         padding: 0px 12px;
         text-align: center;
+        font-size: calc(100vh * 0.0385);
     }
     .fa-check-circle{
         margin-top: calc(100vh*0.045727) ;
         color: #000000;
         font-size: calc(100vh*0.2105);
+    }
+    ion-button{
+        --background: #3492EA;
+        width: 80%;
+        --border-radius: 4px;    
     }
 }
 

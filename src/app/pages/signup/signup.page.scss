@@ -26,7 +26,10 @@ div{
         margin: 27px 0px 4px 0px;
         color: black;
         display: flex;
-        --border-radius: 4px    
+        --border-radius: 4px    ;
+        --background-activated: #707070; 
+        --background-focused: #707070; 
+        --background-hover: #707070;
     }
 }
 p{
