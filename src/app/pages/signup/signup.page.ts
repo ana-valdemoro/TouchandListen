@@ -20,13 +20,14 @@ export class SignupPage implements OnInit {
   async onSignUp(){
     const modal = await this.modalCtrl.create({
       component: NotificationModal,
-      backdropDismiss: false,
+      backdropDismiss: true,
+      cssClass: "modal-container"
     });
     await modal.present();
-    /*const { data } = await modal.onDidDismiss();
-    if(data) { 
-      this.createdSamples.push(data);
-    } */
+    const  ruta  =  (await modal.onDidDismiss()).data;
+    if(ruta) { 
+      return this.navCtrl.navigateRoot([ruta]);
+    }
   }
   onCheckFields(){
     return !this.user.name || !this.user.surname || !this.user.email || !this.user.password;
