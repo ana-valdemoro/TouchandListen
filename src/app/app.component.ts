@@ -13,6 +13,6 @@ export class AppComponent {
     this.initializeApp();
   }
   initializeApp(){
-    this.router.navigateByUrl('login');
+    //sthis.router.navigateByUrl('login'); //Esto no es muy buena usarlo porque cada  vez que reinicio la app me rederige aqui por defecto.
   }
 }
