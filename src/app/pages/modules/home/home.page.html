@@ -5,5 +5,17 @@
 </ion-header>
 
 <ion-content >
- 
+  <div class="container">
+    <h1>Reproduciendo</h1>
+    <div class="playing-item">
+      <div id="song-image">
+        <img [src]="currentSong?.photoURL? currentSong.photoURL :'assets/images/defaultSong.jpg'">
+      </div>
+      <div id="song-information">
+        <p>{{currentSong.name}}</p>
+        <p class="artist-information" *ngFor="let artist of currentSong.artists">{{artist}}</p>
+      </div>
+    </div>
+    <h1>Siguiente en la lista de reproducción</h1>
+  </div>
 </ion-content>
