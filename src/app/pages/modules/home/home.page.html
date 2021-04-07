@@ -13,9 +13,18 @@
       </div>
       <div id="song-information">
         <p>{{currentSong.name}}</p>
-        <p class="artist-information" *ngFor="let artist of currentSong.artists">{{artist}}</p>
+        <p id="artist-information" *ngFor="let artist of currentSong.artists">{{artist}}</p>
+        <ion-range #range  max="100" [(ngModel)]="progress" >
+          <ion-label  slot="start">{{currentTime}}</ion-label>
+          <ion-label  slot="end">{{ duration }}</ion-label>
+        </ion-range>
       </div>
     </div>
     <h1>Siguiente en la lista de reproducción</h1>
+    <ion-list *ngFor="let song of playlist">
+      <ion-item (click)="start(song)">
+        <ion-label>{{song.name}}</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

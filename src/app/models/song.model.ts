@@ -7,4 +7,6 @@ export interface ISong {
     genre?:string;
     album?:string;
     photoURL?: string;
+    path?:string;
+    timesPlaying?: number;
 }
