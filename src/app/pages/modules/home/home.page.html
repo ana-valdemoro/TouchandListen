@@ -21,10 +21,16 @@
       </div>
     </div>
     <h1>Siguiente en la lista de reproducción</h1>
-    <ion-list *ngFor="let song of playlist">
+    <!--<ion-list *ngFor="let song of playlist">
       <ion-item (click)="start(song)">
         <ion-label>{{song.name}}</ion-label>
       </ion-item>
-    </ion-list>
+    </ion-list>-->
+    <div *ngFor="let playlistItem of playlist, let i=index">
+      <app-playlist-item [track]="playlistItem" [index]="i"></app-playlist-item>
+    </div>
+    <div class="playlist-item">
+
+    </div>
   </div>
 </ion-content>

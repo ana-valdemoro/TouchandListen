@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PasswordInputComponent } from './password-input/password-input.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
 
 const components = [
-  PasswordInputComponent
+  PasswordInputComponent,
+  PlaylistItemComponent
 ];
 
 @NgModule({

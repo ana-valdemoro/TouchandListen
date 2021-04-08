@@ -1,0 +1,11 @@
+.playlist-item{
+    background-color: #707070;
+    width: calc(100vw*0.797);
+    border-radius: 9px;
+    display: flex;
+
+    img{
+        width: calc(100vw*0.27);
+        border-radius: 9px;
+    }
+}
