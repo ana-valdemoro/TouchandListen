@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
     console.log("A resetear la contraseña");
   }
   onSignIn(){
-    this.navCtrl.navigateRoot(['/modules']);
+    this.navCtrl.navigateRoot(['/tabs']);
   }
   onSignUp(){
     this.navCtrl.navigateForward(['/signup']);

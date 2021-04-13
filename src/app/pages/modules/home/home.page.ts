@@ -34,6 +34,24 @@ export class HomePage {
       path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
       timesPlaying: 2589
 
+    },
+    {
+      name: "Bailaa conmigo",
+      artists: ["Selena Gómez", "Rauw Alejandro"],
+      duration: "3:04",
+      photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
+      path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
+      timesPlaying: 2589
+
+    },
+    {
+      name: "Bailaa conmigo",
+      artists: ["Selena Gómez", "Rauw Alejandro"],
+      duration: "3:04",
+      photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
+      path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
+      timesPlaying: 2589
+
     }
   ];
   player:Howl = null;

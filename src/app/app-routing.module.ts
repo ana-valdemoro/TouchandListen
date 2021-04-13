@@ -22,15 +22,20 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
-  }, {
-    path: 'modules',
-    //canActivate: [CompositeGuard],
-    /*data: {
-      redirectUrl: 'login',
-      routeGuards: [AuthGuard, HasSelectedAssociationGuard, HasSelectedFarmGuard],
-    },*/
-    loadChildren: () => import('./pages/modules/modules.module').then((m) => m.ModulesModule),
+  },// }, {
+  //   path: 'modules',
+  //   //canActivate: [CompositeGuard],
+  //   /*data: {
+  //     redirectUrl: 'login',
+  //     routeGuards: [AuthGuard, HasSelectedAssociationGuard, HasSelectedFarmGuard],
+  //   },*/
+  //   loadChildren: () => import('./pages/modules/modules.module').then((m) => m.ModulesModule),
+  // },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
+
 
 ];
 
