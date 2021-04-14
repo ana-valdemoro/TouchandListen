@@ -1,0 +1,40 @@
+.playlist-item{
+    background-color: #707070;
+    width: calc(100vw*0.797);
+    border-radius: 9px;
+    display: flex;
+    margin: calc(100vw*0.02) 0px;
+
+    img{
+        width: calc(100vw*0.27);
+        border-radius: 9px;
+    }
+    .track-information{
+        margin-left: calc(100vw*0.05);
+        flex-grow: 1;
+        font-size: calc(100vh*0.022);
+        p{
+            margin: calc(100vw*0.02) 0px;
+        }
+        #artist-details{
+            margin: 0px 0px;
+            color: #331143;
+            margin-left: 16px;
+          }
+        .track-details{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            //margin-top: calc(100vh*0.01);
+            p{
+                margin:0px;
+            }
+            p,span,i{
+                color:#331143 ;
+            }
+            i{
+                font-size:calc(100vw*0.0559);
+            }
+        }
+    }
+}

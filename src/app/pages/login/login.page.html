@@ -10,7 +10,7 @@
     <form>
       <ion-input type="email" placeholder="Correo electrónico"></ion-input>
       <app-password-input></app-password-input>
-      <ion-button [disabled] = "true" (click)="onSignIn()">Iniciar sesión</ion-button>
+      <ion-button [disabled] = "false" (click)="onSignIn()">Iniciar sesión</ion-button>
     </form>
     <p>¿Olvidaste tu contraseña? <span (click) ="onResetPassword()">Recuperar contraseña</span></p>
     <div class="separator-container">

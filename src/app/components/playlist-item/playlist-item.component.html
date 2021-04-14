@@ -1,0 +1,12 @@
+<div class="playlist-item">
+  <img src='assets/images/defaultSong.jpg'>
+  <div class="track-information">
+    <p>{{index+1}}. {{track.name}}</p>
+    <p id="artist-details" *ngFor="let artist of track.artists">{{artist}}</p>
+    <div class="track-details">
+      <p>{{track.duration}}</p>
+      <span>{{track.timesPlaying}}</span>
+      <i class="fa-thumbs-up" ngClass="{{thumbsUpToggleIcon}}" (click)="onlike()"></i>
+    </div>
+  </div>
+</div>
