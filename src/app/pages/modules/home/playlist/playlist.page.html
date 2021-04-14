@@ -8,5 +8,10 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="container">
+    <h1>Lista de reproducción</h1>
+    <div *ngFor="let playlistItem of playlist, let i=index">
+      <app-playlist-item [track]="playlistItem" [index]="i"></app-playlist-item>
+    </div>
+  </div>
 </ion-content>

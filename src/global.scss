@@ -51,6 +51,14 @@ ion-content{
       justify-content: space-between;
       align-items: center;
       min-height: 100%;
+      h1{
+        font-size: 22px;
+        font-weight: 400;
+        font-style: italic;
+        margin: 0px 0px;
+        align-self: start;
+        margin-left: calc(100vw*0.1015);
+      }
     }
   }
   ion-toolbar{
