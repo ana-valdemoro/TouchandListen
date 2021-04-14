@@ -1,5 +1,7 @@
 <div class="playlist-item">
-  <img src='assets/images/defaultSong.jpg'>
+  <div class="song-image">
+    <img src='assets/images/defaultSong.jpg'>
+  </div>
   <div class="track-information">
     <p>{{index+1}}. {{track.name}}</p>
     <p id="artist-details" *ngFor="let artist of track.artists">{{artist}}</p>

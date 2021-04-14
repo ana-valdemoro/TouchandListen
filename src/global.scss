@@ -59,6 +59,15 @@ ion-content{
         align-self: start;
         margin-left: calc(100vw*0.1015);
       }
+      .song-image{
+        display: flex;
+        img{
+          border-radius: 100%;
+          width: calc(100vw*0.27);
+          margin: calc(100vw*0.03);
+          align-self: center;
+        }
+      }
     }
   }
   ion-toolbar{
