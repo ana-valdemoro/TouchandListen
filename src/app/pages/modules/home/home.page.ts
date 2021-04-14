@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ISong } from 'src/app/models/song.model';
 import { Howl } from 'howler';
+import { NavController } from '@ionic/angular';
+import { PlaylistPage } from './playlist/playlist.page';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { Howl } from 'howler';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(public navCtrl: NavController) {}
   currentSong: ISong ={
     name: "Baila conmigo",
     artists: ["Selena Gómez", "Rauw Alejandro"],
@@ -99,6 +101,9 @@ export class HomePage {
         this.updateProgress();
       }, 1000);
     } 
+  }
+  onGoPlaylistPage(){
+    this.navCtrl.navigateForward('tabs/home/playlist');
   }
  
 }

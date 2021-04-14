@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonTabButton } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { IonTabs } from '@ionic/angular/directives/navigation/ion-tabs';
 
 @Component({
@@ -11,6 +11,7 @@ export class TabsPage implements OnInit {
 
   constructor() { }
   @ViewChild('tabs') tabs: IonTabs;
+
   ngOnInit() {}
   tabs_routes = [
     {

@@ -1,4 +1,4 @@
-<ion-tabs #tabs (ionTabsDidChange)="setActivatedTab()">
+<ion-tabs #tabs #navCtl (ionTabsDidChange)="setActivatedTab()">
   <ion-tab-bar slot="bottom">
     <ion-tab-button *ngFor="let tab of tabs_routes" [tab]="tab.path" >
       <i class="fas {{tab.icon}}"  [ngClass]="{activated: tab.selected}" ></i>
