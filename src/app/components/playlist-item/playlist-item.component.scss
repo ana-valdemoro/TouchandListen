@@ -5,10 +5,6 @@
     display: flex;
     margin: calc(100vw*0.02) 0px;
 
-    // img{
-    //     width: calc(100vw*0.27);
-    //     border-radius: 9px;
-    // }
     .track-information{
         margin-left: calc(100vw*0.05);
         display: flex;
@@ -28,11 +24,10 @@
             display: flex;
             justify-content: space-evenly;
             align-items: center;
-            //margin-top: calc(100vh*0.01);
             p{
                 margin:0px;
             }
-            p,span,i{
+            p,i{
                 color:#331143 ;
             }
             i{

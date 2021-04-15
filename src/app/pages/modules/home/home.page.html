@@ -20,7 +20,7 @@
         </ion-range>
       </div>
     </div>
-    <h1 (click)="onGoPlaylistPage()">Siguiente en la lista de reproducción</h1>
+    <h1 (click)="onViewEntirePlaylist()">Siguiente en la lista de reproducción</h1>
     <div *ngFor="let playlistItem of playlist, let i=index">
       <app-playlist-item [track]="playlistItem" [index]="i"></app-playlist-item>
     </div>

@@ -68,6 +68,15 @@ ion-content{
           align-self: center;
         }
       }
+      p{
+        font-size: 13px;
+        margin: 3.5% 0px;
+        span{
+            color:#AE37E5;
+            text-decoration: underline;
+            padding-left: 2px;
+        }
+    }
     }
   }
   ion-toolbar{

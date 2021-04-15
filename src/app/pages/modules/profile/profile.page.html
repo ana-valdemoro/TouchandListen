@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar mode="ios">
-    <ion-title>Account</ion-title>
+    <ion-title>Cuenta</ion-title>
     <ion-buttons slot="end">
       <ion-button>Cerrar sesión</ion-button>
     </ion-buttons>
@@ -8,5 +8,30 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="container">
+    <div id="profile-header">
+      <img class="profile-photo" src='assets/images/defaultSong.jpg'>
+      <h1>Dua Lipa</h1>
+    </div>
+    <div id="profile-information">
+      <div class="profile-item">
+        <i class="fas fa-user-circle blue"></i>
+        <ion-input [ngModel]="user.name" class="input" type="text" [disabled]="disableEditionMode" ></ion-input>
+        <i class="fas {{editToggleIcon}}" (click)="toggleEditionMode()"></i>
+      </div>
+      <hr class="separator">
+      <div class="profile-item">
+        <i class="fas fa-envelope blue"></i>
+        <ion-input [ngModel]="user.email" class="input" type="text" [disabled]="disableEditionMode" ></ion-input>
+        <i class="fas {{editToggleIcon}}" (click)="toggleEditionMode()"></i>
+      </div>
+      <hr class="separator">
+      <div class="profile-item">
+        <i class="fas fa-lock blue"></i>
+        <ion-input [ngModel]="user.email" class="input" type="password" [disabled]="disableEditionMode" ></ion-input>
+        <i class="fas {{editToggleIcon}}" (click)="toggleEditionMode()"></i>
+      </div>
+    </div>  
+    <p>¿No te agrada la aplicación?<span (click)="onDeleteAccount()">Eliminar cuenta</span></p>
+  </div>  
 </ion-content>
