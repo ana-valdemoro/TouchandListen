@@ -102,7 +102,7 @@ export class HomePage {
       }, 1000);
     } 
   }
-  onGoPlaylistPage(){
+  onViewEntirePlaylist(){
     this.navCtrl.navigateForward('tabs/home/playlist');
   }
  

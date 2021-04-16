@@ -8,7 +8,7 @@
   <div class="container">
     <h1>Reproduciendo</h1>
     <div class="playing-item">
-      <div id="song-image">
+      <div class="song-image">
         <img [src]="currentSong?.photoURL? currentSong.photoURL :'assets/images/defaultSong.jpg'">
       </div>
       <div id="song-information">
@@ -20,7 +20,7 @@
         </ion-range>
       </div>
     </div>
-    <h1 (click)="onGoPlaylistPage()">Siguiente en la lista de reproducción</h1>
+    <h1 (click)="onViewEntirePlaylist()">Siguiente en la lista de reproducción</h1>
     <div *ngFor="let playlistItem of playlist, let i=index">
       <app-playlist-item [track]="playlistItem" [index]="i"></app-playlist-item>
     </div>
