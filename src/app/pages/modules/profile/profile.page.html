@@ -10,26 +10,27 @@
 <ion-content>
   <div class="container">
     <div id="profile-header">
-      <img class="profile-photo" src='assets/images/defaultSong.jpg'>
-      <h1>Dua Lipa</h1>
+      <img class="profile-photo" src='assets/images/defaultSong.jpg'>  
     </div>
+    <h1>Dua Lipa</h1>
     <div id="profile-information">
       <div class="profile-item">
         <i class="fas fa-user-circle blue"></i>
-        <ion-input [ngModel]="user.name" class="input" type="text" [disabled]="disableEditionMode" ></ion-input>
-        <i class="fas {{editToggleIcon}}" (click)="toggleEditionMode()"></i>
+        <ion-input [ngModel]="user.name" class="input" type="text" [disabled]="nameEditionMode" ></ion-input>
+        <i class="fas"  [ngClass]="{'fa-pen': nameEditionMode, 'fa-save': !nameEditionMode}" (click)="this.nameEditionMode = !this.nameEditionMode"></i>
       </div>
       <hr class="separator">
       <div class="profile-item">
         <i class="fas fa-envelope blue"></i>
-        <ion-input [ngModel]="user.email" class="input" type="text" [disabled]="disableEditionMode" ></ion-input>
-        <i class="fas {{editToggleIcon}}" (click)="toggleEditionMode()"></i>
+        <ion-input [ngModel]="user.email" class="input" type="text" [disabled]="emailEditionMode" ></ion-input>
+        <i class="fas" [ngClass]="{'fa-pen': emailEditionMode, 'fa-save': !emailEditionMode}" (click)="this.emailEditionMode = !this.emailEditionMode"></i>
       </div>
       <hr class="separator">
       <div class="profile-item">
         <i class="fas fa-lock blue"></i>
-        <ion-input [ngModel]="user.email" class="input" type="password" [disabled]="disableEditionMode" ></ion-input>
-        <i class="fas {{editToggleIcon}}" (click)="toggleEditionMode()"></i>
+        <ion-input [ngModel]="user.password" class="input" [type]="showPassword ? 'text' : 'password'" [disabled]="passwordEditionMode" ></ion-input>
+        <i class="fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="this.showPassword = !this.showPassword"></i>
+        <i class="fas" [ngClass]="{'fa-pen': passwordEditionMode, 'fa-save': !passwordEditionMode}" (click)="this.passwordEditionMode = !this.passwordEditionMode"></i>
       </div>
     </div>  
     <p>¿No te agrada la aplicación?<span (click)="onDeleteAccount()">Eliminar cuenta</span></p>

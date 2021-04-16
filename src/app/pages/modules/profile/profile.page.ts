@@ -15,6 +15,10 @@ export class ProfilePage implements OnInit {
     email: "dualipa@gmail.ccomm",
     password: "ANoche"
   } as IUser;
+  nameEditionMode:boolean = true;
+  passwordEditionMode: boolean = true;
+  emailEditionMode : boolean = true;
+  showPassword:boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -22,12 +26,5 @@ export class ProfilePage implements OnInit {
   onDeleteAccount(){
 
   }
-  toggleEditionMode(){
-    this.disableEditionMode = !this.disableEditionMode ;
-    if(this.editToggleIcon == "fa-pen"){
-      this.editToggleIcon = "fa-save";
-    }else{
-      this.editToggleIcon = "fa-pen";
-    }
-  }
+
 }
