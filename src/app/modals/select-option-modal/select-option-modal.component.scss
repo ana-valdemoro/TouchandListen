@@ -1,0 +1,45 @@
+:host >ion-content{
+    --background: #FFFFFF ;
+}
+.modal-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    h2{
+        color: black;
+        padding: 0px 12px;
+        text-align: center;
+        font-size: calc(100vh * 0.0385);
+    }
+    .fa-trash-alt{
+        margin-top: calc(100vh*0.045727) ;
+        color: #000000;
+        font-size: calc(100vh*0.2105);
+    }
+    div{
+        display: flex;
+        width: calc(100vw * 0.792);
+        justify-content: space-between;
+        ion-button{
+            width: 80%;
+            --border-radius: 4px; 
+            margin: 10px;
+            
+        }
+        & .activated{
+            --background: #3492EA;
+        } 
+        & .danger{
+            --background:#EA0F0F;
+            --background-activated:#b90b0bbb ;
+        } 
+
+        
+        
+        
+    }
+    
+}
+

@@ -11,7 +11,7 @@ export class NotificationModal implements OnInit {
   modalData: IModalData = {
     image: "fas fa-check-circle",
     message: "Su cuenta ha sido creada con éxito",
-    buttonMessage: "Iniciar sesión",
+    buttonMessage: ["Iniciar sesión"],
     navigationRoute: "/login"
   };
   constructor(private modalCtrl: ModalController) { }
