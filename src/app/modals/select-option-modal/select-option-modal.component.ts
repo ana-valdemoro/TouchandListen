@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { IModalData } from 'src/app/models/modal-data.model';
 
@@ -8,12 +8,7 @@ import { IModalData } from 'src/app/models/modal-data.model';
   styleUrls: ['./select-option-modal.component.scss'],
 })
 export class SelectOptionModal implements OnInit {
-  modalData: IModalData = {
-    image: "fas fa-trash-alt",
-    message: "¿Estás seguro de querer eliminar la cuenta?",
-    buttonMessage: ["No", "Sí"],
-    navigationRoute: "/tabs/profile/delete-acount"
-  };
+  @Input() modalData: IModalData;
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/models/user.model';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
+import { IModalData } from 'src/app/models/modal-data.model';
 
 @Component({
   selector: 'app-profile',
@@ -25,10 +26,32 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
   }
-  async onDeleteAccount(){
+  async onLogOut(){
+    let modalData: IModalData = {
+      image: "fas fa-trash-alt",
+      message: "¿Estás seguro de querer cerrar sesión?",
+      buttonMessage: ["Cancelar", "Sí"],
+      navigationRoute: "/login"
+    };
     const modal = await this.modalCtrl.create({
       component: SelectOptionModal,
       backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
+  }
+  async onDeleteAccount(){
+    let modalData: IModalData = {
+      image: "fas fa-trash-alt",
+      message: "¿Estás seguro de querer eliminar la cuenta?",
+      buttonMessage: ["No", "Sí"],
+      navigationRoute: "/tabs/profile/delete-acount"
+    };
+    const modal = await this.modalCtrl.create({
+      component: SelectOptionModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
       cssClass: "modal-container"
     });
     await modal.present();
