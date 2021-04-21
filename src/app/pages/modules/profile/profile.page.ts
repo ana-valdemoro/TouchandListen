@@ -32,10 +32,10 @@ export class ProfilePage implements OnInit {
       cssClass: "modal-container"
     });
     await modal.present();
-    // const  ruta  =  (await modal.onDidDismiss()).data;
-    // if(ruta) { 
-    //   return this.navCtrl.navigateRoot([ruta]);
-    // }
+    const  ruta  =  (await modal.onDidDismiss()).data;
+    if(ruta) { 
+      return this.navCtrl.navigateRoot([ruta]);
+    }
   }
 
 }

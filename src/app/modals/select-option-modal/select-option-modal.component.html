@@ -2,7 +2,7 @@
   <i class='{{modalData.image}}'></i>
   <h2>{{modalData.message}}</h2>
   <div>
-    <ion-button  class="danger" (click)="onDismissModal()">{{modalData.buttonMessage[0]}}</ion-button>
-    <ion-button class="activated" (click)="onDeleteAccountView()" >{{modalData.buttonMessage[1]}}</ion-button>
+    <ion-button  class="cancel" (click)="onDismissModal()">{{modalData.buttonMessage[0]}}</ion-button>
+    <ion-button class="affirmative" (click)="onRedirectView()" >{{modalData.buttonMessage[1]}}</ion-button>
   </div>
 </div>  

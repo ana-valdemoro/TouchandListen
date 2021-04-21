@@ -12,14 +12,14 @@ export class SelectOptionModal implements OnInit {
     image: "fas fa-trash-alt",
     message: "¿Estás seguro de querer eliminar la cuenta?",
     buttonMessage: ["No", "Sí"],
-    navigationRoute: "/login"
+    navigationRoute: "/tabs/profile/delete-acount"
   };
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
-  onDeleteAccountView():Promise<boolean>{
-    return this.modalCtrl.dismiss();
+  onRedirectView():Promise<boolean>{
+    return this.modalCtrl.dismiss(this.modalData.navigationRoute);
   }
   onDismissModal():Promise<boolean>{
     return this.modalCtrl.dismiss();
