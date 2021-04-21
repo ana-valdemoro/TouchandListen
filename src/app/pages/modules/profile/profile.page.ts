@@ -28,7 +28,7 @@ export class ProfilePage implements OnInit {
   }
   async onLogOut(){
     let modalData: IModalData = {
-      image: "fas fa-trash-alt",
+      image: "fas fa-sign-out-alt",
       message: "¿Estás seguro de querer cerrar sesión?",
       buttonMessage: ["Cancelar", "Sí"],
       navigationRoute: "/login"
@@ -40,6 +40,10 @@ export class ProfilePage implements OnInit {
       cssClass: "modal-container"
     });
     await modal.present();
+    const  ruta  =  (await modal.onDidDismiss()).data;
+    if(ruta) { 
+      return this.navCtrl.navigateRoot([ruta]);
+    }
   }
   async onDeleteAccount(){
     let modalData: IModalData = {
@@ -57,7 +61,7 @@ export class ProfilePage implements OnInit {
     await modal.present();
     const  ruta  =  (await modal.onDidDismiss()).data;
     if(ruta) { 
-      return this.navCtrl.navigateRoot([ruta]);
+      return this.navCtrl.navigateForward ([ruta]);
     }
   }
 
