@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ProfilePage
+  },
+  {
+    path: 'delete-acount',
+    loadChildren: () => import('./delete-acount-page/delete-acount-page.module').then( m => m.DeleteAcountPagePageModule)
   }
+
 ];
 
 @NgModule({

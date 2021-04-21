@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { NotificationModal } from 'src/app/modals/notification-modal/notification-modal.component';
 import { IUser } from 'src/app/models/user.model';
-
+import { IModalData } from 'src/app/models/modal-data.model'; 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -18,9 +18,16 @@ export class SignupPage implements OnInit {
     this.navCtrl.navigateBack(['/login']);
   }
   async onSignUp(){
+    let modalData: IModalData = {
+      image: "fas fa-check-circle",
+      message: "Su cuenta ha sido creada con éxito",
+      buttonMessage: ["Iniciar sesión"],
+      navigationRoute: "/login"
+    };
     const modal = await this.modalCtrl.create({
       component: NotificationModal,
       backdropDismiss: true,
+      componentProps:{modalData : modalData},
       cssClass: "modal-container"
     });
     await modal.present();
