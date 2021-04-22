@@ -64,5 +64,11 @@ export class ProfilePage implements OnInit {
       return this.navCtrl.navigateForward ([ruta]);
     }
   }
+  onTogglePasswordEditionMode():void{
+    this.passwordEditionMode = !this.passwordEditionMode;
+  }
+  onToggleShowPassword():void{
+    this.showPassword = !this.showPassword;
+  }
 
 }

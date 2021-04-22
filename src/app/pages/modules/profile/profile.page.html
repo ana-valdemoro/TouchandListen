@@ -29,8 +29,8 @@
       <div class="profile-item">
         <i class="fas fa-lock blue"></i>
         <ion-input [ngModel]="user.password" class="input" [type]="showPassword ? 'text' : 'password'" [disabled]="passwordEditionMode" ></ion-input>
-        <i class="fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="this.showPassword = !this.showPassword"></i>
-        <i class="fas" [ngClass]="{'fa-pen': passwordEditionMode, 'fa-save': !passwordEditionMode}" (click)="this.passwordEditionMode = !this.passwordEditionMode"></i>
+        <i class="fas" [ngStyle]="{'margin': this.showPassword ? '0px 7px' : '0px 6px' }" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="this.showPassword = !this.showPassword"></i>
+        <i class="fas" [ngStyle]="{'margin': this.passwordEditionMode ? '0px 6px' : '0px 7px' }" [ngClass]="{'fa-pen': passwordEditionMode, 'fa-save': !passwordEditionMode}" (click)="onTogglePasswordEditionMode()"></i>
       </div>
     </div>  
     <p>¿No te agrada la aplicación?<span (click)="onDeleteAccount()">Eliminar cuenta</span></p>
