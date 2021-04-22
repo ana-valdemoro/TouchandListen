@@ -1,0 +1,12 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>Buscador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <h1>Últimos lanzamientos</h1>
+    <app-song-item *ngFor="let song of songs" [song]="song"></app-song-item>
+  </div>
+</ion-content>

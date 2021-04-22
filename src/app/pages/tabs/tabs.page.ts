@@ -20,7 +20,7 @@ export class TabsPage implements OnInit {
       selected: false
     },
     {
-      path: '',
+      path: 'search',
       icon: 'fa-search',
       selected: false
     },

@@ -21,12 +21,11 @@
     div{
         display: flex;
         width: calc(100vw * 0.792);
-        justify-content: space-between;
         ion-button{
             width: 80%;
             --border-radius: 4px; 
-            margin: 10px;
-            
+            margin: calc(100vw*0.02);
+            height: 50px;
         }
         & .affirmative{
             --background: #3492EA;

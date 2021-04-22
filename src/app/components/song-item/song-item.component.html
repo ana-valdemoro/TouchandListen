@@ -1,0 +1,14 @@
+<div class="song-item">
+  <div class="song-image">
+    <img src='assets/images/defaultSong.jpg'>
+  </div>
+  <div class="song-information">
+    <p>{{song.name}}</p>
+    <p id="artist-details" *ngFor="let artist of song.artists">{{artist}}</p>
+  </div>
+  <div class="song-actions">
+    <div class="add-song-button" (click)="onAddPlaylist()">
+      <i class='fas fa-plus'></i>
+    </div>
+  </div>
+</div>

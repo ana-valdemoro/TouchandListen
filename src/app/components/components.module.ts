@@ -4,10 +4,12 @@ import { PasswordInputComponent } from './password-input/password-input.componen
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
+import { SongItemComponent } from './song-item/song-item.component';
 
 const components = [
   PasswordInputComponent,
-  PlaylistItemComponent
+  PlaylistItemComponent,
+  SongItemComponent
 ];
 
 @NgModule({
