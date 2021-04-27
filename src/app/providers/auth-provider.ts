@@ -19,20 +19,20 @@ export class AuthProvider {
         console.log("Error", error);
       }
     }  
-    async register(user: IUser){
-        this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password)
-        .then(result =>{
-          this.angularFireStore.collection('users').doc(result.user.uid).set({
-            name: user.name,
-            surname: user.surname
-          })
-          .catch(error => {
+    async register(newUser: IUser){
+      try{
+        const { user } = await this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
+        this.angularFireStore.collection('users').doc(user.uid).set({
+            name: newUser.name,
+            surname: newUser.surname,
+            email: newUser.email
+        }).catch(error => {
             console.log('Error adding user to firestore: ', error);
           })
-        })
-        .catch(error =>{
+        return user;
+      }catch(error){
           console.log("Error on sign up user:", error);
-        })
+      }
     }
     logout():void{
       try{
