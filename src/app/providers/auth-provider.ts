@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 // import { FirebaseService } from './firebase.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import { IUser } from "../models/user.model";
 
 
@@ -9,7 +10,7 @@ import { IUser } from "../models/user.model";
   })
 export class AuthProvider {
   public isLogged:any = false;
-    constructor(public angularFireAuth: AngularFireAuth){}
+    constructor(public angularFireAuth: AngularFireAuth, private  angularFireStore: AngularFirestore){}
 
     login( email: string, password: string){
       try{
@@ -18,13 +19,20 @@ export class AuthProvider {
         console.log("Error", error);
       }
     }  
-    async register(email:string, password:string){
-      try{
-        const { user } = await this.angularFireAuth.createUserWithEmailAndPassword(email, password);
-        return user;
-      }catch(error){
-        console.log("Error on register user:", error);
-      }
+    async register(user: IUser){
+        this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password)
+        .then(result =>{
+          this.angularFireStore.collection('users').doc(result.user.uid).set({
+            name: user.name,
+            surname: user.surname
+          })
+          .catch(error => {
+            console.log('Error adding user to firestore: ', error);
+          })
+        })
+        .catch(error =>{
+          console.log("Error on sign up user:", error);
+        })
     }
     logout():void{
       try{
@@ -32,5 +40,8 @@ export class AuthProvider {
       }catch(error){  
         console.log("Error", error);
       }
+    }
+    private updateUserData(user:IUser){
+      const userRef : AngularFirestoreDocument<IUser> = this.angularFireStore.doc(`users/${user._id}`); 
     }
 }

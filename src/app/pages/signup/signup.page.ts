@@ -39,16 +39,17 @@ export class SignupPage implements OnInit {
   }
   async onSignUp(){
     if(this.user.email && this.user.password ){
-      const user = await this.authProvider.register(this.user.email, this.user.password);
-      if(user){
-        this.onShowSuccesModal();
-      }
+      const user = await this.authProvider.register(this.user);
+      console.log(user);
+      // if(user){
+      //   this.onShowSuccesModal();
+      // }
     }
   }
   onCheckFields(){
     return !this.user.name || !this.user.surname || !this.user.email || !this.user.password;
   }
-  getPassword(password:string){
+  getPassword(password:string):void{
     this.user.password = password;
   }
 }
