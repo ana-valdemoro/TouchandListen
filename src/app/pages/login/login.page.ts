@@ -18,13 +18,8 @@ export class LoginPage implements OnInit {
     console.log("A resetear la contraseña");
   }
   async onSignIn(){
-    if(this.user.email && this.user.password ){
-      const user = await this.authProvider.login(this.user.email, this.user.password);
-      if(user){
-        //this.onShowSuccesModal();
-      }
-    }
-    this.navCtrl.navigateRoot(['/tabs']);
+    let user = await this.authProvider.login(this.user.email, this.user.password);
+    if(user) this.navCtrl.navigateRoot(['/tabs']);
   }
   onSignUp(){
     this.navCtrl.navigateForward(['/signup']);
