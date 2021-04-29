@@ -3,6 +3,7 @@ import { IUser } from 'src/app/models/user.model';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
+import { AuthProvider } from 'src/app/providers/auth-provider';
 
 @Component({
   selector: 'app-profile',
@@ -22,11 +23,14 @@ export class ProfilePage implements OnInit {
   passwordEditionMode: boolean = true;
   emailEditionMode : boolean = true;
   showPassword:boolean = false;
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController) { }
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController,  private authProvider: AuthProvider) { }
 
   ngOnInit() {
   }
-  async onLogOut(){
+  onLogOut():Boolean{
+    return this.authProvider.logout() ? true : false;
+  }
+  async onAskToLogOut(){
     let modalData: IModalData = {
       image: "fas fa-sign-out-alt",
       message: "¿Estás seguro de querer cerrar sesión?",
@@ -40,9 +44,9 @@ export class ProfilePage implements OnInit {
       cssClass: "modal-container"
     });
     await modal.present();
-    const  ruta  =  (await modal.onDidDismiss()).data;
-    if(ruta) { 
-      return this.navCtrl.navigateRoot([ruta]);
+    const  navigationActivated :boolean  =  (await modal.onDidDismiss()).data;
+    if(navigationActivated && this.onLogOut()) { 
+      return this.navCtrl.navigateRoot([modalData.navigationRoute]);
     }
   }
   async onDeleteAccount(){

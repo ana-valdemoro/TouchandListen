@@ -14,9 +14,9 @@ export class SelectOptionModal implements OnInit {
   ngOnInit() {}
 
   onRedirectView():Promise<boolean>{
-    return this.modalCtrl.dismiss(this.modalData.navigationRoute);
+    return this.modalCtrl.dismiss(true);
   }
   onDismissModal():Promise<boolean>{
-    return this.modalCtrl.dismiss();
+    return this.modalCtrl.dismiss(false);
   }
 }

@@ -70,12 +70,13 @@ export class AuthProvider {
           });
       });
   }
-    async logout(){
+    async logout():Promise<boolean>{
       try{
         await this.angularFireAuth.signOut();
-        // this.currentUser.next(null);
+        return true;
       }catch(error){  
         console.log("Error", error);
+        return false;
       }
     }
 }
