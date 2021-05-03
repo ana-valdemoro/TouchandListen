@@ -1,11 +1,9 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore} from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { IUser } from "../models/user.model";
-import { switchMap } from "rxjs/operators";
-import { UserProvider } from "./user-provider";
-import firebase from "firebase/app"
+import firebase from "firebase/app";
+// import { userInfo } from "node:os";
 
 
 
@@ -14,14 +12,19 @@ import firebase from "firebase/app"
   })
 export class AuthProvider {
   // conts TOKEN_KEY:any = 'my-token';
-  private user: firebase.User;
-  private currentUser: BehaviorSubject<IUser> = new BehaviorSubject(null);
+  private user: any ;
   subcription: any;
-  constructor(public angularFireAuth: AngularFireAuth, private userProvider: UserProvider){}
+  private currentUser: BehaviorSubject<IUser> = new BehaviorSubject(null)
+  private numero: number = 2;
+  constructor(public angularFireAuth: AngularFireAuth){
+
+
+  }
 
     async login( email: string, password: string):Promise<firebase.User>{
       try{
         const { user } = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
+        this.setCurrentUser(user);
         return user;
       }catch(error){
         console.log("Error", error);
@@ -29,7 +32,6 @@ export class AuthProvider {
     }  
     async register(newUser: IUser){
       try{
-        // const { user } = await this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
         this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
           .then(userCredential => {
             userCredential.user.updateProfile({displayName: newUser.name})
@@ -39,40 +41,24 @@ export class AuthProvider {
           console.log("Error on sign up user:", error);
       }
     }
-    //Vamos a
-    public getCurrentUser(){
-      return this.angularFireAuth.currentUser;
-    }
-    async getUserUID(): Promise<string> {
-      return (await this.angularFireAuth.currentUser).uid;
-    }
     
-    setCurrentUser():Promise<boolean>{
-      return new Promise((resolve) => {
-        this.subcription = this.angularFireAuth.authState
-          .pipe(
-            switchMap((fbUser) => {  
-              return fbUser ? this.userProvider.getUserByUID(fbUser.uid) : of(null);
-            })
-          )
-          .subscribe(async (user) => {
-            try {
-              if (!user) {
-                this.currentUser.next(null);
-              }
-            }catch(error){
-              console.error(error);
-              resolve(false);
-            }
-            this.currentUser.next(user);
-            console.log('Se setea el usuario ', user);
-            resolve(true);
-          });
-      });
-  }
+    private setCurrentUser(user: IUser):void{
+        if(user) {
+          this.currentUser.next(user);
+          localStorage.setItem("currentUser", user.uid);
+        }else{
+          this.currentUser.next(null);
+          localStorage.removeItem("currentUser");
+        }
+    }
+    public getCurrentUser(): Observable<IUser> {
+      return this.currentUser;
+    }
+
     async logout():Promise<boolean>{
       try{
         await this.angularFireAuth.signOut();
+        this.setCurrentUser(null);
         return true;
       }catch(error){  
         console.log("Error", error);
