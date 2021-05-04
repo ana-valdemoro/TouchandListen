@@ -34,7 +34,7 @@ export class AuthProvider {
       try{
         this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
           .then(userCredential => {
-            userCredential.user.updateProfile({displayName: newUser.name})
+            userCredential.user.updateProfile({displayName: newUser.displayName})
             .catch(err => console.log("No se ha podido actualizar datos", err));
           });
       }catch(error){

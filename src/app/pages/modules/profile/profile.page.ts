@@ -4,6 +4,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
 import { AuthProvider } from 'src/app/providers/auth-provider';
+import { UserProvider } from 'src/app/providers/user-provider';
 
 @Component({
   selector: 'app-profile',
@@ -13,19 +14,17 @@ import { AuthProvider } from 'src/app/providers/auth-provider';
 export class ProfilePage implements OnInit {
   editToggleIcon:string = "fa-pen";
   disableEditionMode: boolean = true;
-  user: IUser = {
-    name: "Dua Lipa",
-    surname: "Smith",
-    email: "dualipa@gmail.ccomm",
-    password: "ANoche"
-  } as IUser;
+  user: IUser;
   nameEditionMode:boolean = true;
-  passwordEditionMode: boolean = true;
+  phoneNumberEditionMode: boolean = true;
   emailEditionMode : boolean = true;
-  showPassword:boolean = false;
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController,  private authProvider: AuthProvider) { }
+  constructor(public navCtrl: NavController, 
+    private modalCtrl: ModalController,  
+    private authProvider: AuthProvider,
+    private UserProvider: UserProvider ) { }
 
   ngOnInit() {
+    this.UserProvider.getLoggedUser().then(user => this.user = user);
   }
   onLogOut():Boolean{
     return this.authProvider.logout() ? true : false;
@@ -67,12 +66,6 @@ export class ProfilePage implements OnInit {
     if(ruta) { 
       return this.navCtrl.navigateForward ([ruta]);
     }
-  }
-  onTogglePasswordEditionMode():void{
-    this.passwordEditionMode = !this.passwordEditionMode;
-  }
-  onToggleShowPassword():void{
-    this.showPassword = !this.showPassword;
   }
 
 }

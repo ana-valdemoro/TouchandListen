@@ -42,7 +42,7 @@ export class SignupPage implements OnInit {
       /*if(this.authProvider.getCurrentUser())*/ this.onShowSuccesModal(); 
   }
   onCheckFields(){
-    return !this.user.name || !this.user.surname || !this.user.email || !this.user.password;
+    return !this.user.displayName || !this.user.phoneNumber || !this.user.email || !this.user.password;
   }
   getPassword(password:string):void{
     this.user.password = password;
