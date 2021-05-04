@@ -16,8 +16,8 @@
     <div id="profile-information">
       <div class="profile-item">
         <i class="fas fa-user-circle blue"></i>
-        <ion-input [ngModel]="user.displayName" class="input" type="text" [disabled]="nameEditionMode" ></ion-input>
-        <i class="fas"  [ngClass]="{'fa-pen': nameEditionMode, 'fa-save': !nameEditionMode}" (click)="this.nameEditionMode = !this.nameEditionMode"></i>
+        <ion-input #displayName [ngModel]="user.displayName" class="input" type="text" [disabled]="nameEditionMode" ></ion-input>
+        <i class="fas"  [ngClass]="{'fa-pen': nameEditionMode, 'fa-save': !nameEditionMode}" (click)="onUpdateDisplayName(displayName.value)"></i>
       </div>
       <hr class="separator">
       <div class="profile-item">

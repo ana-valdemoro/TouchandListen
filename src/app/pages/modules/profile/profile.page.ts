@@ -5,6 +5,8 @@ import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-opt
 import { IModalData } from 'src/app/models/modal-data.model';
 import { AuthProvider } from 'src/app/providers/auth-provider';
 import { UserProvider } from 'src/app/providers/user-provider';
+import { Observable } from 'rxjs';
+import { NotificationModal } from 'src/app/modals/notification-modal/notification-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -23,8 +25,8 @@ export class ProfilePage implements OnInit {
     private authProvider: AuthProvider,
     private UserProvider: UserProvider ) { }
 
-  ngOnInit() {
-    this.UserProvider.getLoggedUser().then(user => this.user = user);
+  async ngOnInit() {
+    await this.UserProvider.getLoggedUser().then(user => this.user = user);
   }
   onLogOut():Boolean{
     return this.authProvider.logout() ? true : false;
@@ -67,5 +69,47 @@ export class ProfilePage implements OnInit {
       return this.navCtrl.navigateForward ([ruta]);
     }
   }
-
+  async onUpdateDisplayName(newDisplayName:string){
+    this.nameEditionMode = !this.nameEditionMode;
+    if(newDisplayName && this.nameEditionMode == true){
+      console.log(newDisplayName);
+      let res = await this.UserProvider.updateDisplayName(newDisplayName);
+        if (res === true) {
+          console.log("hello<2");
+          this.onShowSuccessfulModal("nombre");
+        }else{
+          this.onShowFailureModal("nombre");
+        }
+    }
+  }
+  async onShowSuccessfulModal(field: string){
+    let modalData: IModalData = {
+      image: "fas fa-check-circle",
+      message: `Su ${field} ha sido actualizado con éxito`,
+      buttonMessage: ["Salir"],
+      navigationRoute: ""
+    };
+    const modal = await this.modalCtrl.create({
+      component: NotificationModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
+  }
+  async onShowFailureModal(field:string){
+    let modalData: IModalData = {
+      image: "fas fa-times-circle",
+      message: `Su ${field} no ha podido ser actualizado`,
+      buttonMessage: ["Salir"],
+      navigationRoute: ""
+    };
+    const modal = await this.modalCtrl.create({
+      component: NotificationModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
+  }
 }

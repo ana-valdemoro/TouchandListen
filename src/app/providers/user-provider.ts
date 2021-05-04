@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { IUser } from "../models/user.model";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { Observable } from "rxjs";
+import { AuthProvider } from "./auth-provider";
 
 @Injectable({
     providedIn: 'root',
 })
 
 export class UserProvider {
-    constructor(private  angularFireAuth: AngularFireAuth) {}
+    constructor(private  angularFireAuth: AngularFireAuth, private authProvider: AuthProvider ) {}
 
     //Método que devuelve el objeto Iuser encontrado
     // public async getUserByUID(uid: string):Promise<IUser>{
@@ -24,11 +26,14 @@ export class UserProvider {
     //     })
     // }
     public async getLoggedUser(): Promise<IUser>{
-        let user = await this.angularFireAuth.currentUser;
-        console.log(user);
-        return {
-        email: user.email,
-        displayName: user.displayName,
-        photoUrl: user.photoURL} as IUser
+        return this.angularFireAuth.currentUser;
+    }
+    public async  updateDisplayName(newDisplayName:string): Promise<boolean>{
+        let successfulEdition = false;
+        let user  = await  this.angularFireAuth.currentUser;
+        await user.updateProfile( {displayName: newDisplayName})
+            .then(() => successfulEdition = true);
+        return successfulEdition;
     }
 }
+

@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { IUser } from "../models/user.model";
 import firebase from "firebase/app";
-// import { userInfo } from "node:os";
 
 
 
@@ -11,7 +10,7 @@ import firebase from "firebase/app";
     providedIn: 'root',
   })
 export class AuthProvider {
-  // conts TOKEN_KEY:any = 'my-token';
+
   private user: any ;
   subcription: any;
   private currentUser: BehaviorSubject<IUser> = new BehaviorSubject(null)
