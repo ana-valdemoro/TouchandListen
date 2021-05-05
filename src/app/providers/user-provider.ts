@@ -35,5 +35,18 @@ export class UserProvider {
             .then(() => successfulEdition = true);
         return successfulEdition;
     }
+    public async updateEmail (email:string):Promise<boolean>{
+        let successfulEdition = false;
+        await this.angularFireAuth.currentUser
+            .then( async user =>{
+                try{
+                    await user.updateEmail(email)
+                    .then(() => successfulEdition = true);
+                }catch(err){
+                    console.log(err);
+                }
+            });
+        return successfulEdition;    
+    }
 }
 

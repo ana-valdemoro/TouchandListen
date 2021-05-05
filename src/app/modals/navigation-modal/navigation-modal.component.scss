@@ -7,11 +7,15 @@ div{
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    h2{
+    .text{
         color: black;
         padding: 0px 12px;
         text-align: center;
-        font-size: calc(100vh * 0.0385);
+    }
+    h2{        font-size: calc(100vh * 0.0385);
+    }
+    h4{
+        font-size: calc(100vh * 0.0285);
     }
     .fa-check-circle,.fa-times-circle{
         margin-top: calc(100vh*0.045727) ;

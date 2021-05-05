@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IUser } from 'src/app/models/user.model';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
@@ -7,6 +7,7 @@ import { AuthProvider } from 'src/app/providers/auth-provider';
 import { UserProvider } from 'src/app/providers/user-provider';
 import { Observable } from 'rxjs';
 import { NotificationModal } from 'src/app/modals/notification-modal/notification-modal.component';
+import { NavigationModal } from 'src/app/modals/navigation-modal/navigation-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import { NotificationModal } from 'src/app/modals/notification-modal/notificatio
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  @ViewChild('email') email;
   editToggleIcon:string = "fa-pen";
   disableEditionMode: boolean = true;
   user: IUser;
@@ -71,22 +73,33 @@ export class ProfilePage implements OnInit {
   }
   async onUpdateDisplayName(newDisplayName:string){
     this.nameEditionMode = !this.nameEditionMode;
-    if(newDisplayName && this.nameEditionMode == true){
-      console.log(newDisplayName);
+    if(newDisplayName!==this.user.displayName && this.nameEditionMode == true ){
       let res = await this.UserProvider.updateDisplayName(newDisplayName);
         if (res === true) {
-          console.log("hello<2");
           this.onShowSuccessfulModal("nombre");
         }else{
           this.onShowFailureModal("nombre");
         }
     }
   }
+  async onUpdateEmail(email:string){
+    this.emailEditionMode = !this.emailEditionMode;
+    if(email!==this.user.email && this.emailEditionMode== true){
+      let res = await this.UserProvider.updateEmail(email);
+      console.log(res);
+      if (res === true) {
+        this.onShowSuccessfulModal("email");
+      }else{
+        this.email.value = this.user.email;
+        this.onShowReStartSessionModal();
+      }
+    }
+  }
   async onShowSuccessfulModal(field: string){
     let modalData: IModalData = {
       image: "fas fa-check-circle",
       message: `Su ${field} ha sido actualizado con éxito`,
-      buttonMessage: ["Salir"],
+      buttonMessage: ["Cerrar"],
       navigationRoute: ""
     };
     const modal = await this.modalCtrl.create({
@@ -101,7 +114,7 @@ export class ProfilePage implements OnInit {
     let modalData: IModalData = {
       image: "fas fa-times-circle",
       message: `Su ${field} no ha podido ser actualizado`,
-      buttonMessage: ["Salir"],
+      buttonMessage: ["Cerrar"],
       navigationRoute: ""
     };
     const modal = await this.modalCtrl.create({
@@ -111,5 +124,25 @@ export class ProfilePage implements OnInit {
       cssClass: "modal-container"
     });
     await modal.present();
+  }
+  async onShowReStartSessionModal(){
+    let modalData: IModalData = {
+      image: "fas fa-times-circle",
+      message: `Su email no ha podido ser actualizado`,
+      secondaryMessage: "Debe iniciar sesión nuevamente",
+      buttonMessage: ["Iniciar sesión"],
+      navigationRoute: "/login"
+    };
+    const modal = await this.modalCtrl.create({
+      component: NavigationModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
+    const  navigationActivated :boolean  =  (await modal.onDidDismiss()).data;
+    if(navigationActivated === true && this.onLogOut()) { 
+      return this.navCtrl.navigateRoot([modalData.navigationRoute]);
+    }
   }
 }
