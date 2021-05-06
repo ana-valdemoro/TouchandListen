@@ -3,6 +3,6 @@ export interface IUser {
     email: string;
     displayName?:string;
     password?: string;
-    photoUrl?: string;
+    photoURL?: string;
     phoneNumber?: string;
 }
