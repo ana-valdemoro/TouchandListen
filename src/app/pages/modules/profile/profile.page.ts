@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IUser } from 'src/app/models/user.model';
-import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
+import { ActionSheetController, ModalController, NavController, Platform } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
 import { AuthProvider } from 'src/app/providers/auth-provider';
@@ -18,6 +18,7 @@ const { Camera } = Plugins;
 })
 export class ProfilePage implements OnInit {
   @ViewChild('email') email;
+  @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   editToggleIcon:string = "fa-pen";
   disableEditionMode: boolean = true;
   user: IUser;
@@ -29,7 +30,8 @@ export class ProfilePage implements OnInit {
     private authProvider: AuthProvider,
     private UserProvider: UserProvider,
     private firestorageService : FirestorageService,
-    private actionSheetCtrl: ActionSheetController 
+    private actionSheetCtrl: ActionSheetController,
+    private plt: Platform 
     ) { }
 
   async ngOnInit() {
@@ -169,6 +171,16 @@ export class ProfilePage implements OnInit {
         }
       }
     ];
+     // Only allow file selection inside a browser
+     if (!this.plt.is('hybrid')) {
+      buttons.push({
+        text: 'Choose a File',
+        icon: 'attach',
+        handler: () => {
+          this.fileInput.nativeElement.click();
+        }
+      });
+    }  
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Foto de perfil',
       buttons
@@ -197,6 +209,20 @@ export class ProfilePage implements OnInit {
     }
     
 
+  }
+  async uploadFile(event: EventTarget) {
+    const eventObj: MSInputMethodContext = event as MSInputMethodContext;
+    const target: HTMLInputElement = eventObj.target as HTMLInputElement;
+    const file: File = target.files[0];
+    let res  = await this.firestorageService.uploadProfileImage(file,'ProfileImages', this.user.uid);
+    let newPhotoUlr = await this.firestorageService.getProfileImage(this.user.uid);
+    console.log("La respuesta es",res);
+    if(res && newPhotoUlr){    
+      this.user.photoURL = newPhotoUlr; 
+      this.onShowSuccessfulModal("foto de perfil");
+    }else{
+      this.onShowFailureModal("foto de perfil")
+    }
   }
   // Helper function
   // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript

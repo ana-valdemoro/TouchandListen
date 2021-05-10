@@ -12,6 +12,13 @@
     <div id="profile-header">
       <img class="profile-photo" [src]="user.photoURL ? (user.photoURL | async ): 'assets/images/defaultSong.jpg'">  
       <ion-fab>
+        <input
+        type="file"
+        #fileInput
+        (change)="uploadFile($event)"
+        hidden="true"
+        accept="image/*"
+      />  
         <ion-fab-button (click)="selectImageSource()">
           <ion-icon name="camera"></ion-icon>
         </ion-fab-button>
