@@ -1,18 +1,28 @@
 import { Injectable } from "@angular/core";
 import { IUser } from "../models/user.model";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { Observable } from "rxjs";
 import { AuthProvider } from "./auth-provider";
+import { FirestorageService } from "../services/firestorage.service";
 
 @Injectable({
     providedIn: 'root',
 })
 
 export class UserProvider {
-    constructor(private  angularFireAuth: AngularFireAuth, private authProvider: AuthProvider ) {}
+    constructor(private  angularFireAuth: AngularFireAuth, private authProvider: AuthProvider, private fireStorageService: FirestorageService ) {}
 
     public async getLoggedUser(): Promise<IUser>{
-        return this.angularFireAuth.currentUser;
+        let user = await this.angularFireAuth.currentUser
+            .then( async user =>{
+                return user;
+            });
+        console.log(user);
+        let photoURL =  await this.fireStorageService.getProfileImage(user.uid);
+        return {photoURL: photoURL,
+            displayName: user.displayName,
+            email: user.email,
+            uid: user.uid, 
+        } as IUser;
     }
     public async  updateDisplayName(newDisplayName:string): Promise<boolean>{
         let successfulEdition = false;
@@ -33,14 +43,6 @@ export class UserProvider {
                 }
             });
         return successfulEdition;    
-    }
-    public async updatePhotoUrl(url: string):Promise<boolean>{
-        let successfulEdition = false;
-        let user  = await  this.angularFireAuth.currentUser;
-        await user.updateProfile( {photoURL: url})
-            .then(() => successfulEdition = true);
-        return successfulEdition;
-
     }
 }
 

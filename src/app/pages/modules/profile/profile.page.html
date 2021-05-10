@@ -10,7 +10,12 @@
 <ion-content>
   <div class="container" *ngIf="user">
     <div id="profile-header">
-      <img class="profile-photo" src='assets/images/defaultSong.jpg'>  
+      <img class="profile-photo" [src]="user.photoURL ? (user.photoURL | async ): 'assets/images/defaultSong.jpg'">  
+      <ion-fab>
+        <ion-fab-button (click)="selectImageSource()">
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </div>
     <h1>{{user.displayName}}</h1>
     <div id="profile-information">
