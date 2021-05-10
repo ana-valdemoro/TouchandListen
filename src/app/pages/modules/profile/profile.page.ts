@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IUser } from 'src/app/models/user.model';
-import { ModalController, NavController } from '@ionic/angular';
+import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
 import { AuthProvider } from 'src/app/providers/auth-provider';
 import { UserProvider } from 'src/app/providers/user-provider';
-import { Observable } from 'rxjs';
 import { NotificationModal } from 'src/app/modals/notification-modal/notification-modal.component';
 import { NavigationModal } from 'src/app/modals/navigation-modal/navigation-modal.component';
+import { FirestorageService } from 'src/app/services/firestorage.service';
+import { CameraResultType, CameraSource, Plugins } from '@capacitor/core';
+const { Camera } = Plugins;
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +27,10 @@ export class ProfilePage implements OnInit {
   constructor(public navCtrl: NavController, 
     private modalCtrl: ModalController,  
     private authProvider: AuthProvider,
-    private UserProvider: UserProvider ) { }
+    private UserProvider: UserProvider,
+    private firestorageService : FirestorageService,
+    private actionSheetCtrl: ActionSheetController 
+    ) { }
 
   async ngOnInit() {
     await this.UserProvider.getLoggedUser().then(user => this.user = user);
@@ -76,6 +81,7 @@ export class ProfilePage implements OnInit {
     if(newDisplayName!==this.user.displayName && this.nameEditionMode == true ){
       let res = await this.UserProvider.updateDisplayName(newDisplayName);
         if (res === true) {
+          this.user.displayName = newDisplayName;
           this.onShowSuccessfulModal("nombre");
         }else{
           this.onShowFailureModal("nombre");
@@ -144,5 +150,73 @@ export class ProfilePage implements OnInit {
     if(navigationActivated === true && this.onLogOut()) { 
       return this.navCtrl.navigateRoot([modalData.navigationRoute]);
     }
+  }
+
+  async selectImageSource(){
+    const buttons = [
+      {
+        text: 'Hacer una foto',
+        icon: 'camera',
+        handler: () => {
+          this.addImage(CameraSource.Camera);
+        }
+      },
+      {
+        text: 'Elegir foto de la galería',
+        icon: 'image',
+        handler: () => {
+          this.addImage(CameraSource.Photos);
+        }
+      }
+    ];
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Foto de perfil',
+      buttons
+    });
+    await actionSheet.present();
+
+  }
+  async addImage(source : CameraSource){
+    console.log("Vamos a elegir imagen de perfil");
+    const image = await Camera.getPhoto({
+      quality: 60,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      source
+    });
+    const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
+    let res  = await this.firestorageService.uploadProfileImage( blobData,'ProfileImages', this.user.uid);
+    let newPhotoUlr = await this.firestorageService.getProfileImage(this.user.uid);
+    console.log("La respuesta es",res);
+    //this.user.photoURL = await this.firestorageService.getProfileImage(this.user.uid).then( observable =>{ return observable;});
+    if(res && newPhotoUlr){    
+      this.user.photoURL = newPhotoUlr; 
+      this.onShowSuccessfulModal("foto de perfil");
+    }else{
+      this.onShowFailureModal("foto de perfil")
+    }
+    
+
+  }
+  // Helper function
+  // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
+  b64toBlob(b64Data, contentType = '', sliceSize = 512): Blob {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+ 
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+ 
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+ 
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+ 
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   }
 }
