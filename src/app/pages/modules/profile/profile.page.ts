@@ -25,6 +25,7 @@ export class ProfilePage implements OnInit {
   nameEditionMode:boolean = true;
   phoneNumberEditionMode: boolean = true;
   emailEditionMode : boolean = true;
+  isImageLoaded:boolean = false;
   constructor(public navCtrl: NavController, 
     private modalCtrl: ModalController,  
     private authProvider: AuthProvider,
@@ -35,7 +36,18 @@ export class ProfilePage implements OnInit {
     ) { }
 
   async ngOnInit() {
-    await this.UserProvider.getLoggedUser().then(user => this.user = user);
+    await this.UserProvider.getLoggedUser().then(user => {
+      this.user = user;
+      this.user.photObservable.subscribe(data =>{
+        this.isImageLoaded = true;
+        this.user.photoURL = data;
+      }, error =>{
+        console.log(error);
+        this.isImageLoaded = true;
+        this.user.photoURL = 'assets/images/defaultSong.jpg';
+      });
+    });
+    
   }
   onLogOut():Boolean{
     return this.authProvider.logout() ? true : false;
@@ -160,14 +172,14 @@ export class ProfilePage implements OnInit {
         text: 'Hacer una foto',
         icon: 'camera',
         handler: () => {
-          this.addImage(CameraSource.Camera);
+          this.manageImageFormat(CameraSource.Camera);
         }
       },
       {
         text: 'Elegir foto de la galería',
         icon: 'image',
         handler: () => {
-          this.addImage(CameraSource.Photos);
+          this.manageImageFormat(CameraSource.Photos);
         }
       }
     ];
@@ -188,8 +200,7 @@ export class ProfilePage implements OnInit {
     await actionSheet.present();
 
   }
-  async addImage(source : CameraSource){
-    console.log("Vamos a elegir imagen de perfil");
+  async manageImageFormat(source : CameraSource){
     const image = await Camera.getPhoto({
       quality: 60,
       allowEditing: false,
@@ -197,33 +208,32 @@ export class ProfilePage implements OnInit {
       source
     });
     const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
-    let res  = await this.firestorageService.uploadProfileImage( blobData,'ProfileImages', this.user.uid);
-    let newPhotoUlr = await this.firestorageService.getProfileImage(this.user.uid);
-    console.log("La respuesta es",res);
-    //this.user.photoURL = await this.firestorageService.getProfileImage(this.user.uid).then( observable =>{ return observable;});
-    if(res && newPhotoUlr){    
-      this.user.photoURL = newPhotoUlr; 
-      this.onShowSuccessfulModal("foto de perfil");
-    }else{
-      this.onShowFailureModal("foto de perfil")
-    }
-    
-
+    this.requestUploadImage(blobData)
   }
-  async uploadFile(event: EventTarget) {
+
+  requestUploadImage(file:any,){
+    this.firestorageService.uploadProfileImage( file,'ProfileImages', this.user.uid)
+      .then(async res =>{
+        console.log("La respuesta de subir la foto ha sido: ", res);
+        this.isImageLoaded = false;
+        (await this.firestorageService.getProfileImage(this.user.uid)).subscribe( (url)=>{
+          this.isImageLoaded = true;
+          this.user.photoURL = url;
+          this.onShowSuccessfulModal("foto de perfil");
+        })
+      })
+      .catch(err =>{
+        this.onShowFailureModal("foto de perfil");
+      });
+  }
+
+  async manageFileFormat(event: EventTarget) {
     const eventObj: MSInputMethodContext = event as MSInputMethodContext;
     const target: HTMLInputElement = eventObj.target as HTMLInputElement;
     const file: File = target.files[0];
-    let res  = await this.firestorageService.uploadProfileImage(file,'ProfileImages', this.user.uid);
-    let newPhotoUlr = await this.firestorageService.getProfileImage(this.user.uid);
-    console.log("La respuesta es",res);
-    if(res && newPhotoUlr){    
-      this.user.photoURL = newPhotoUlr; 
-      this.onShowSuccessfulModal("foto de perfil");
-    }else{
-      this.onShowFailureModal("foto de perfil")
-    }
+    this.requestUploadImage(file);
   }
+
   // Helper function
   // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
   b64toBlob(b64Data, contentType = '', sliceSize = 512): Blob {

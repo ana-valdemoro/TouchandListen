@@ -10,12 +10,12 @@
 <ion-content>
   <div class="container" *ngIf="user">
     <div id="profile-header">
-      <img class="profile-photo" [src]="user.photoURL ? (user.photoURL | async ): 'assets/images/defaultSong.jpg'">  
+      <img class="profile-photo" *ngIf="isImageLoaded" [src]="user.photoURL">  
       <ion-fab>
         <input
         type="file"
         #fileInput
-        (change)="uploadFile($event)"
+        (change)="manageFileFormat($event)"
         hidden="true"
         accept="image/*"
       />  

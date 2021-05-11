@@ -17,8 +17,8 @@ export class UserProvider {
                 return user;
             });
         console.log(user);
-        let photoURL =  await this.fireStorageService.getProfileImage(user.uid);
-        return {photoURL: photoURL,
+        let photoURL = await this.fireStorageService.getProfileImage(user.uid);
+        return {photObservable: photoURL,
             displayName: user.displayName,
             email: user.email,
             uid: user.uid, 

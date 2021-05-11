@@ -10,12 +10,11 @@ export class FirestorageService {
 
   constructor(private angularFireStorage: AngularFireStorage) { }
 
-  //Subir imagénes de la galeria o con la cámara
   uploadProfileImage(file:any, path: string, imageName: string):Promise<boolean>{
     return new Promise( resolve => {
       const filePath = path + '/' + imageName;
       const ref = this.angularFireStorage.ref(filePath);
-      ref.put(file).then(() => {resolve(true);});
+      ref.put(file).then(() => {resolve(true);}).catch(()=> resolve(false));
     });
 
     //   task.snapshotChanges().pipe(
