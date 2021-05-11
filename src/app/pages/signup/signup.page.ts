@@ -38,8 +38,10 @@ export class SignupPage implements OnInit {
     }
   }
   async onSignUp(){
-      this.authProvider.register(this.user);
-      /*if(this.authProvider.getCurrentUser())*/ this.onShowSuccesModal(); 
+      this.authProvider.register(this.user)
+        .then((user) => {
+          if (user) this.onShowSuccesModal();
+        });
   }
   onCheckFields(){
     return !this.user.displayName || !this.user.phoneNumber || !this.user.email || !this.user.password;
