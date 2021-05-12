@@ -17,16 +17,6 @@ export class FirestorageService {
       ref.put(file).then(() => {resolve(true);}).catch(()=> resolve(false));
     });
 
-    //   task.snapshotChanges().pipe(
-    //     finalize(() => {
-    //       ref.getDownloadURL()
-    //         .subscribe( URL =>{
-    //           resolve(URL);
-    //           return;
-    //         });
-    //     })
-    //  );
-    // });
   }
 
   public async getProfileImage(userUID:string){
@@ -43,4 +33,11 @@ export class FirestorageService {
   //     console.log(err);
   //    }
   // }
+  public async deleteProfileImage(userUID: string){
+    try{
+      return this.angularFireStorage.ref(`/ProfileImages/${userUID}`).delete();
+    }catch(err){
+      console.log(err);
+    }
+  }
 }

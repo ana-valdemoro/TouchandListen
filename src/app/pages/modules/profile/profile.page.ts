@@ -76,7 +76,7 @@ export class ProfilePage implements OnInit {
       image: "fas fa-trash-alt",
       message: "¿Estás seguro de querer eliminar la cuenta?",
       buttonMessage: ["No", "Sí"],
-      navigationRoute: "/tabs/profile/delete-acount"
+      navigationRoute: "tabs/profile/delete-acount"
     };
     const modal = await this.modalCtrl.create({
       component: SelectOptionModal,
@@ -87,7 +87,7 @@ export class ProfilePage implements OnInit {
     await modal.present();
     const  ruta  =  (await modal.onDidDismiss()).data;
     if(ruta) { 
-      return this.navCtrl.navigateForward ([ruta]);
+      this.navCtrl.navigateForward ([ruta]);
     }
   }
   async onUpdateDisplayName(newDisplayName:string){
