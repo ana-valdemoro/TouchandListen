@@ -12,7 +12,7 @@
       <app-password-input (passwordCompleted)="getPassword($event)"></app-password-input>
       <ion-button mode="ios" [disabled] = "onCheckFields()" (click)="onSignIn()">Iniciar sesión</ion-button>
     </form>
-    <p>¿Olvidaste tu contraseña? <span (click) ="onResetPassword()">Recuperar contraseña</span></p>
+    <p>¿Olvidaste tu contraseña? <span (click) ="onResetPasswordView()">Recuperar contraseña</span></p>
     <div class="separator-container">
       <hr class="separator">
       <p>O registrate con</p>

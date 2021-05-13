@@ -14,8 +14,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-  onResetPassword(){
-    console.log("A resetear la contraseña");
+  onResetPasswordView(){
+    this.navCtrl.navigateForward(['/reset-password']);
   }
   async onSignIn(){
     let user = await this.authProvider.login(this.user.email, this.user.password);
