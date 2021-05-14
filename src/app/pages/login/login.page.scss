@@ -6,23 +6,23 @@ ion-content{
             color: #F2F2F2;
             font-size: calc(100vh*0.21);
         }
-        form{
-            ion-input{
-                --background: #AE37E5;
-                border-radius: 4px;
-                margin-top:calc(100vh*0.043478);
-                --padding-start: 10px;
-                width: var(--input-with);
-                height:  44.8px;
-            }
-            ion-button{
-                --background: #F2F2F2;
-                margin: 27px 0px 4px 0px;
-                color: black;
-                display: flex;
-                --border-radius: 4px    
-            }
-        }
+        // form{
+        //     ion-input{
+        //         --background: #AE37E5;
+        //         border-radius: 4px;
+        //         margin-top:calc(100vh*0.043478);
+        //         --padding-start: 10px;
+        //         width: var(--input-with);
+        //         height:  44.8px;
+        //     }
+        //     ion-button{
+        //         --background: #F2F2F2;
+        //         margin: 27px 0px 4px 0px;
+        //         color: black;
+        //         display: flex;
+        //         --border-radius: 4px    
+        //     }
+        // }
         
         .separator-container{
             display: flex;

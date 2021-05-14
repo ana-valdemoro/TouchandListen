@@ -74,5 +74,8 @@ export class AuthProvider {
         return false;
       }
     }
+    resetPassword(email:string):Promise<void>{
+      return this.angularFireAuth.sendPasswordResetEmail(email);
+    }
    
 }
