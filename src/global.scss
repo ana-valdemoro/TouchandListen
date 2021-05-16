@@ -43,7 +43,7 @@
     font-weight: 400;
     color: #F2F2F2;
   }
-ion-content{
+  ion-content{
     --background: #331143;
     .container{
       display: flex;
@@ -67,7 +67,7 @@ ion-content{
             display: flex;
             --border-radius: 4px    
         }
-    }
+      }
       h1{
         font-size: 22px;
         font-weight: 400;
@@ -101,7 +101,7 @@ ion-content{
     ion-title{
         font-size: 14px;
     }
-}
+  }
 .modal-container {
   --height: calc(100vh * 0.62);
   --width: calc(100vw * 0.792);
