@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ISong } from 'src/app/models/song.model';
 import { Howl } from 'howler';
 import { NavController } from '@ionic/angular';
 import { PlaylistPage } from './playlist/playlist.page';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  currentSong: ISong;
+  currentSongIsLoaded:boolean  = false;
+  ngOnInit() {
+    //Llamada al servicio de canciones para que nos de una canción a ver si funciona.
+    this.fireStore.getSong("rXJCklXLGzfJqOvVUAdK")
+      .then(song =>{
+        this.currentSong = song as ISong;
+        this.currentSongIsLoaded = true;
+        console.log(this.currentSong);
+      });
+  }
+  constructor(public navCtrl: NavController, private fireStore: FirestoreService) {}
 
-  constructor(public navCtrl: NavController) {}
-  currentSong: ISong ={
-    name: "Baila conmigo",
-    artists: ["Selena Gómez", "Rauw Alejandro"],
-    duration: "3:04",
-    photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large"
-  } ;
 
   playlist:ISong[] =[ 
     {
@@ -66,6 +72,7 @@ export class HomePage {
     if(this.player){
       this.player.stop();
     }
+    console.log("Hellou");
     this.player = new Howl({
       src:[song.path],
       html5:true,
@@ -81,6 +88,7 @@ export class HomePage {
       }
     });
     this.player.play();
+    // this.player.mute(true);
   }
   seek(){
 
@@ -95,7 +103,7 @@ export class HomePage {
     let seek = this.player.seek(); //Obtenemos la posición actual
     this.currentTime = this.formatTime(seek);
     this.progress = (seek / this.player.duration()) * 100 || 0;
-    console.log(this.progress);
+    // console.log(this.progress);
     if(this.player.playing()){
       setTimeout(()=>{
         this.updateProgress();
