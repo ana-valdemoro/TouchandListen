@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ISong } from 'src/app/models/song.model';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-search',
@@ -34,10 +35,17 @@ export class SearchPage implements OnInit {
   //     timesPlaying: 2589
 
   //   }];
-  constructor() { }
+  constructor(private fireStore: FirestoreService) { }
 
-  ngOnInit() {
-    // this.songs;
+  async ngOnInit() {
+ 
+    // this.fireStore.getAllSongs().then(querySnapshot =>{
+    //   querySnapshot.forEach((doc)=>{
+    //     console.log(doc.id, "=>", doc.data())
+    //   })
+    // } );
+    this.fireStore.getAllSongs().then(songs => console.log(songs));
+    
   }
 
 }

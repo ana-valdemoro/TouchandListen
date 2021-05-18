@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
   currentSongIsLoaded:boolean  = false;
   ngOnInit() {
     //Llamada al servicio de canciones para que nos de una canción a ver si funciona.
-    this.fireStore.getSong("rXJCklXLGzfJqOvVUAdK")
+    this.fireStore.getSong("imQ5Js0wGj7IXzhrvf3V")
       .then(song =>{
         this.currentSong = song as ISong;
         this.currentSongIsLoaded = true;

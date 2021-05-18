@@ -7,6 +7,7 @@
 <ion-content>
   <div class="container">
     <h1>Últimos lanzamientos</h1>
-    <app-song-item *ngFor="let song of songs" [song]="song"></app-song-item>
+    <app-song-item  *ngFor="let song of songs" [song]="song"></app-song-item>
+    <h3 *ngIf="!songs">"No hay canciones descargadas"</h3>
   </div>
 </ion-content>
