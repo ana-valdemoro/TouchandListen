@@ -44,8 +44,12 @@ export class SearchPage implements OnInit {
     //     console.log(doc.id, "=>", doc.data())
     //   })
     // } );
-    this.fireStore.getAllSongs().then(songs => console.log(songs));
+    this.fireStore.getInitSongs().then(songs => this.songs = songs);
     
+  }
+
+  requesNextBatch(){
+    this.fireStore.nextBatchOfSongs().then(songs => this.songs = this.songs.concat(songs));
   }
 
 }
