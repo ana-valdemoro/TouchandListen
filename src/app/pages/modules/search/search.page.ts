@@ -9,6 +9,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class SearchPage implements OnInit {
    songs:ISong[]; 
+   moreSongsExist:boolean = true;
   //   {
   //     name: "Baila conmigoooooo",
   //     artists: ["Selena Gómez", "Rauw Alejandro"],
@@ -49,7 +50,9 @@ export class SearchPage implements OnInit {
   }
 
   requesNextBatch(){
-    this.fireStore.nextBatchOfSongs().then(songs => this.songs = this.songs.concat(songs));
+    this.fireStore.nextBatchOfSongs().then(songs => {
+      songs.length!==0 ? this.songs = this.songs.concat(songs) : this.moreSongsExist=false;
+    });
   }
 
 }

@@ -3,6 +3,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
 import { ISong } from 'src/app/models/song.model';
+import { PlaylistProvider } from 'src/app/providers/playlist-provider';
 
 @Component({
   selector: 'app-song-item',
@@ -11,10 +12,11 @@ import { ISong } from 'src/app/models/song.model';
 })
 export class SongItemComponent implements OnInit {
   @Input() song:ISong;
-  constructor(private modalCtrl: ModalController, private navCtrl: NavController) { }
+  constructor(private modalCtrl: ModalController, private navCtrl: NavController, private playlistProvider: PlaylistProvider) { }
 
   ngOnInit() {}
   async onAddPlaylist(){
+    this.playlistProvider.addSong(this.song)
     console.log("Hemos añadido a la playlist");
     let modalData: IModalData = {
       image: "fas fa-check-circle",

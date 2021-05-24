@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 export class ISong {
     _id?: string;
     name: string;
@@ -9,6 +11,8 @@ export class ISong {
     photoURL?: string;
     path?:string;
     timesPlaying?: number;
+    likes?: string[];
+    createdAt?: firebase.firestore.Timestamp;
 
     constructor(song: any ) {
         if (song) {
@@ -16,7 +20,7 @@ export class ISong {
     
           this.name = name;
           this.artists        = artists;
-          this.duration           = duration;
+          this.duration       = duration;
           this.genre          = genre;
           this.photoURL       = photoURL;
           this.path           = path;
