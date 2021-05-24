@@ -18,8 +18,10 @@ export class PlaylistProvider {
             likes: [],
             isPlaying: false
             })
-        .then(() => {return true}, () => {return false} )
+        .then(() => {return true})
         .catch(err => console.log("Error al añadir canción a la playlist", err));
+       }else{
+            return false;
        }
     }
     private async isSongInPlaylist(id:string){

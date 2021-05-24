@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
+import { NotificationModal } from 'src/app/modals/notification-modal/notification-modal.component';
 import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
 import { ISong } from 'src/app/models/song.model';
@@ -15,9 +16,18 @@ export class SongItemComponent implements OnInit {
   constructor(private modalCtrl: ModalController, private navCtrl: NavController, private playlistProvider: PlaylistProvider) { }
 
   ngOnInit() {}
-  async onAddPlaylist(){
+  onAddPlaylist(){
     this.playlistProvider.addSong(this.song)
-    console.log("Hemos añadido a la playlist");
+    .then(res =>{
+      if(res){
+        console.log("Hemos añadido a la playlist");
+        this.onShowSuccesfullModal();
+      }else{
+        this.onShowFailureModal();
+      }
+    })
+  }
+  async onShowSuccesfullModal(){
     let modalData: IModalData = {
       image: "fas fa-check-circle",
       message: "Canción añadida a la playlist correctamente",
@@ -35,6 +45,20 @@ export class SongItemComponent implements OnInit {
     if(ruta) { 
       return this.navCtrl.navigateRoot([ruta]);
     }
-
+  }
+  async onShowFailureModal(){
+    let modalData: IModalData = {
+      image: "fas  fa-exclamation-circle",
+      message: `Esta canción ya se encuentra en la playlist`,
+      buttonMessage: ["Cerrar"],
+      navigationRoute: ""
+    };
+    const modal = await this.modalCtrl.create({
+      component: NotificationModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
   }
 }
