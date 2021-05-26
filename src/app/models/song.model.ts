@@ -12,6 +12,7 @@ export class ISong {
     path?:string;
     timesPlaying?: number;
     likes?: string[];
+    likesCount?: number;
     createdAt?: firebase.firestore.Timestamp;
 
     constructor(song: any ) {
@@ -24,6 +25,13 @@ export class ISong {
           this.genre          = genre;
           this.photoURL       = photoURL;
           this.path           = path;
+          if(song.likes  ){
+            this.likes = song.likes;
+          }
+          if(song.createdAt) this.createdAt = song.createdAt;
+          if(song.likesCount >= 0 ){
+            this.likesCount = song.likesCount;
+          }
           
         }
     
