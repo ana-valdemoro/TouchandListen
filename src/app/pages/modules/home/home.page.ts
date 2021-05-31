@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   currentTime:string  = "0:00";
   progress: number = 0;
   duration:string = "0:00";
+  playlistObservable: Observable<any>;
 
   ngOnInit() {
     //Llamada al servicio de canciones para que nos de una canción a ver si funciona.
@@ -29,8 +30,11 @@ export class HomePage implements OnInit {
         this.currentSongIsLoaded = true;
         console.log(this.currentSong);
       });
-    this.playlistProvider.getAllSongs()
-    .then(songs => this.playlist = songs);
+   
+      //Configuramos el observable de canciones
+      this.playlistObservable = this.playlistProvider.getPlaylistObservable();
+      this.playlistObservable.subscribe(songs =>this.playlist = songs );
+
       
   }
   constructor(public navCtrl: NavController, private fireStore: FirestoreService, private playlistProvider :  PlaylistProvider) {}

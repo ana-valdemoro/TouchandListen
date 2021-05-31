@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ISong } from 'src/app/models/song.model';
+import { PlaylistProvider } from 'src/app/providers/playlist-provider';
 
 @Component({
   selector: 'app-playlist-item',
@@ -9,7 +10,7 @@ import { ISong } from 'src/app/models/song.model';
 export class PlaylistItemComponent implements OnInit {
   @Input() track: ISong;
   @Input() index:number;
-  constructor() { }
+  constructor(private playlistProvider : PlaylistProvider) { }
   thumbsUpToggleIcon:string="far";
   ngOnInit() {
     this.checkUserLike();
@@ -24,10 +25,11 @@ export class PlaylistItemComponent implements OnInit {
   onlike(){
     
     if(this.thumbsUpToggleIcon == "far"){
-      this.thumbsUpToggleIcon = "fas";
+      // this.thumbsUpToggleIcon = "fas";
+      this.playlistProvider.addLikeToSong(this.track._id);
       console.log("le hems dado like");
     }else{
-      this.thumbsUpToggleIcon = "far";
+      this.playlistProvider.deleteLikeToSong(this.track._id);
       console.log("le hems uitado like");
     }
   }

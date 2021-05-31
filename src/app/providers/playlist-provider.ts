@@ -4,18 +4,20 @@ import { ISong } from '../models/song.model';
 import firebase from 'firebase';
 import { ISongService } from "../services/song.service";
 import { BehaviorSubject, Observable } from "rxjs";
+import { IUser } from "../models/user.model";
+import { AuthProvider } from "./auth-provider";
 // import 'rxjs/add/observable/combineLatest';
 
 @Injectable({
     providedIn: 'root',
 })
 
-export class PlaylistProvider {
-    playlistObserver: Observable<ISong[]>;
-    likesFilter$: BehaviorSubject<string|null>;
-    createdAtFilter$: BehaviorSubject<string|null>;
+export class PlaylistProvider{
+    private userObservable:  Observable<IUser>;
+    private currentUser : any;
 
-    constructor(private afs: AngularFirestore) {
+    
+    constructor(private afs: AngularFirestore, private authProvider: AuthProvider) {
         // this.playlistObserver = Observable.combineLatest(
         //     this.sizeFilter$,
         //     this.colorFilter$
@@ -27,6 +29,8 @@ export class PlaylistProvider {
         //       return query;
         //     }).valueChanges()
         //   );
+        this.userObservable = this.authProvider.getCurrentUser();
+        this.userObservable.subscribe(user => this.currentUser = user );
      }
 
     public async addSong(song: ISong){
@@ -47,10 +51,28 @@ export class PlaylistProvider {
     private async isSongInPlaylist(id:string){
         return (await this.afs.collection('Playlist').doc(id).get().toPromise()).data() ? true : false;
     }
-    public async getAllSongs(){
-        const songs = (await this.afs.collection('Playlist', ref => ref.orderBy('likesCount', 'desc').orderBy('createdAt').limit(10)).get()).toPromise(); 
-        return songs.then((songs)=>{ 
-            return ISongService.transformFromDocToISong(songs);
+    // public async getAllSongs(){
+    //     const songs = (await this.afs.collection('Playlist', ref => ref.orderBy('likesCount', 'desc').orderBy('createdAt').limit(10)).get()).toPromise(); 
+    //     return songs.then((songs)=>{ 
+    //         return ISongService.transformFromDocToISong(songs);
+    //     });
+
+    // }
+    getPlaylistObservable (){
+        return this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", false).orderBy('likesCount', 'desc').orderBy('createdAt').limit(10)).valueChanges();
+    }
+
+    addLikeToSong(idSong){
+        // let idUser = localStorage.getItem("currentUser");
+        this.afs.collection('Playlist').doc(idSong).update( {likes: firebase.firestore.FieldValue.arrayUnion(this.currentUser.uid), likesCount: firebase.firestore.FieldValue.increment(1)})
+        .then(()=>{
+            console.log("hemos actualizado el like");
+        });
+    }
+    deleteLikeToSong(idSong){
+        this.afs.collection('Playlist').doc(idSong).update( {likes: firebase.firestore.FieldValue.arrayRemove(this.currentUser.uid), likesCount: firebase.firestore.FieldValue.increment(-1)})
+        .then(()=>{
+            console.log("hemos eliminado el like");
         });
 
     }
