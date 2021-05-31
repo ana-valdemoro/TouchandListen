@@ -4,6 +4,7 @@ import { Howl } from 'howler';
 import { NavController } from '@ionic/angular';
 import { PlaylistPage } from './playlist/playlist.page';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { PlaylistProvider } from 'src/app/providers/playlist-provider';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,13 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export class HomePage implements OnInit {
   currentSong: ISong;
   currentSongIsLoaded:boolean  = false;
+  playlist:ISong[];
+  player:Howl = null;
+  isPlaying:boolean = false;
+  currentTime:string  = "0:00";
+  progress: number = 0;
+  duration:string = "0:00";
+
   ngOnInit() {
     //Llamada al servicio de canciones para que nos de una canción a ver si funciona.
     this.fireStore.getSong("imQ5Js0wGj7IXzhrvf3V")
@@ -21,52 +29,51 @@ export class HomePage implements OnInit {
         this.currentSongIsLoaded = true;
         console.log(this.currentSong);
       });
+    this.playlistProvider.getAllSongs()
+    .then(songs => this.playlist = songs);
+      
   }
-  constructor(public navCtrl: NavController, private fireStore: FirestoreService) {}
+  constructor(public navCtrl: NavController, private fireStore: FirestoreService, private playlistProvider :  PlaylistProvider) {}
 
 
-  playlist:ISong[] =[ 
-    {
-      name: "Baila conmigoooooo",
-      artists: ["Selena Gómez", "Rauw Alejandro"],
-      duration: "3:04",
-      photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-      path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-      timesPlaying: 1458
-    },
-    {
-      name: "Bailaa conmigo",
-      artists: ["Selena Gómez", "Rauw Alejandro"],
-      duration: "3:04",
-      photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-      path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-      timesPlaying: 2589
+  // playlist:ISong[] =[ 
+  //   {
+  //     name: "Baila conmigoooooo",
+  //     artists: ["Selena Gómez", "Rauw Alejandro"],
+  //     duration: "3:04",
+  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
+  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
+  //     likesCount: 1458
+  //   },
+  //   {
+  //     name: "Bailaa conmigo",
+  //     artists: ["Selena Gómez", "Rauw Alejandro"],
+  //     duration: "3:04",
+  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
+  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
+  //     likesCount: 2589
 
-    },
-    {
-      name: "Bailaa conmigo",
-      artists: ["Selena Gómez", "Rauw Alejandro"],
-      duration: "3:04",
-      photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-      path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-      timesPlaying: 2589
+  //   },
+  //   {
+  //     name: "Bailaa conmigo",
+  //     artists: ["Selena Gómez", "Rauw Alejandro"],
+  //     duration: "3:04",
+  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
+  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
+  //     likesCount: 2589
 
-    },
-    {
-      name: "Bailaa conmigo",
-      artists: ["Selena Gómez", "Rauw Alejandro"],
-      duration: "3:04",
-      photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-      path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-      timesPlaying: 2589
+  //   },
+  //   {
+  //     name: "Bailaa conmigo",
+  //     artists: ["Selena Gómez", "Rauw Alejandro"],
+  //     duration: "3:04",
+  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
+  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
+  //     likesCount: 2589
 
-    }
-  ];
-  player:Howl = null;
-  isPlaying:boolean = false;
-  currentTime:string  = "0:00";
-  progress: number = 0;
-  duration:string = "0:00";
+  //   }
+  // ];
+
 
   start(song: ISong){
     if(this.player){

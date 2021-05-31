@@ -11,7 +11,9 @@ export class PlaylistItemComponent implements OnInit {
   @Input() index:number;
   constructor() { }
   thumbsUpToggleIcon:string="far";
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkUserLike();
+  }
 
   public formatTime(milisecs: number):string {
     let secs = Math.round(milisecs);
@@ -28,5 +30,9 @@ export class PlaylistItemComponent implements OnInit {
       this.thumbsUpToggleIcon = "far";
       console.log("le hems uitado like");
     }
+  }
+  checkUserLike(){
+    let storagedUserUID = localStorage.getItem("currentUser");
+    this.track.likes.includes(storagedUserUID) ? this.thumbsUpToggleIcon = "fas" : this.thumbsUpToggleIcon = "far"; ;
   }
 }
