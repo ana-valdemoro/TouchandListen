@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { PlaylistPage } from './playlist/playlist.page';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { PlaylistProvider } from 'src/app/providers/playlist-provider';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -23,12 +24,11 @@ export class HomePage implements OnInit {
   playlistObservable: Observable<any>;
 
   ngOnInit() {
-    //Llamada al servicio de canciones para que nos de una canción a ver si funciona.
-    this.fireStore.getSong("imQ5Js0wGj7IXzhrvf3V")
+    //Llamada a la playlist para que nos devuelva la canción actual a sonar
+     this.playlistProvider.getPlayingSong()
       .then(song =>{
-        this.currentSong = song as ISong;
+        this.currentSong = song[0];
         this.currentSongIsLoaded = true;
-        console.log(this.currentSong);
       });
    
       //Configuramos el observable de canciones

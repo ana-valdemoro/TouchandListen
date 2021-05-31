@@ -12,9 +12,9 @@ export class FirestoreService {
   constructor(private afs: AngularFirestore) { }
 
 
-  async getSong(id: string){
-    return (await this.afs.collection('Songs').doc(id).get().toPromise()).data();
-  }
+  // async getSong(id: string){
+  //   return (await this.afs.collection('Songs').doc(id).get().toPromise()).data();
+  // }
   async getInitSongs(){
     const songs = (await this.afs.collection('Songs', ref => ref.limit(4)).get()).toPromise();
     return songs.then((songs)=>{
