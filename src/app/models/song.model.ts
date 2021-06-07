@@ -4,7 +4,7 @@ export class ISong {
     _id?: string;
     name: string;
     artists: string[];
-    duration: string;
+    duration: number;
     year?: string;
     genre?:string[];
     album?:string;
@@ -14,6 +14,7 @@ export class ISong {
     likes?: string[];
     likesCount?: number;
     createdAt?: firebase.firestore.Timestamp;
+    currentTime?: number;
 
     constructor(song: any ) {
         if (song) {
