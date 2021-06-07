@@ -22,14 +22,22 @@ export class HomePage implements OnInit {
   progress: number = 0;
   duration:string = "0:00";
   playlistObservable: Observable<any>;
+  currentSongObservable : Observable<any>;
 
   ngOnInit() {
     //Llamada a la playlist para que nos devuelva la canción actual a sonar
-     this.playlistProvider.getPlayingSong()
-      .then(song =>{
+    this.currentSongObservable = this.playlistProvider.getPlayingSong();
+    this.currentSongObservable.subscribe(song =>{
+      if(song.length == 1){
+        console.log(song);
         this.currentSong = song[0];
         this.currentSongIsLoaded = true;
+      }
       });
+      // then(song =>{
+      //   this.currentSong = song[0];
+      //   this.currentSongIsLoaded = true;
+      // });
    
       //Configuramos el observable de canciones
       this.playlistObservable = this.playlistProvider.getPlaylistObservable();
@@ -38,46 +46,6 @@ export class HomePage implements OnInit {
       
   }
   constructor(public navCtrl: NavController, private fireStore: FirestoreService, private playlistProvider :  PlaylistProvider) {}
-
-
-  // playlist:ISong[] =[ 
-  //   {
-  //     name: "Baila conmigoooooo",
-  //     artists: ["Selena Gómez", "Rauw Alejandro"],
-  //     duration: "3:04",
-  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-  //     likesCount: 1458
-  //   },
-  //   {
-  //     name: "Bailaa conmigo",
-  //     artists: ["Selena Gómez", "Rauw Alejandro"],
-  //     duration: "3:04",
-  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-  //     likesCount: 2589
-
-  //   },
-  //   {
-  //     name: "Bailaa conmigo",
-  //     artists: ["Selena Gómez", "Rauw Alejandro"],
-  //     duration: "3:04",
-  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-  //     likesCount: 2589
-
-  //   },
-  //   {
-  //     name: "Bailaa conmigo",
-  //     artists: ["Selena Gómez", "Rauw Alejandro"],
-  //     duration: "3:04",
-  //     photoURL:"https://pbs.twimg.com/media/Esru2SuWMAM_TD6.jpg:large",
-  //     path:"../../../../assets/tracks/Selena Gomez, Rauw Alejandro - Baila Conmigo (Official Video).m4a",
-  //     likesCount: 2589
-
-  //   }
-  // ];
-
 
   start(song: ISong){
     if(this.player){

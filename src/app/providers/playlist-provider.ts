@@ -76,10 +76,11 @@ export class PlaylistProvider{
         });
     }
     
-    async getPlayingSong(){
-        let song =  (await this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", true).limit(1)).get()).toPromise();
-        return song.then((song)=>{ 
-            return ISongService.transformFromDocToISong(song);
-        });
+    getPlayingSong(){
+        // let song =  (await this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", true).limit(1)).get()).toPromise();
+        // return song.then((song)=>{ 
+        //     return ISongService.transformFromDocToISong(song);
+        // });
+        return this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", true).limit(1)).valueChanges();
     }
 }
