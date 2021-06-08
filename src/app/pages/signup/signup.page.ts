@@ -4,6 +4,7 @@ import { NotificationModal } from 'src/app/modals/notification-modal/notificatio
 import { IUser } from 'src/app/models/user.model';
 import { IModalData } from 'src/app/models/modal-data.model'; 
 import { AuthProvider } from 'src/app/providers/auth-provider';
+import { TermsAndConditionsModal } from 'src/app/modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -48,5 +49,13 @@ export class SignupPage implements OnInit {
   }
   getPassword(password:string):void{
     this.user.password = password;
+  }
+  async onAceptTermsAndConditions(){
+    const modal = await this.modalCtrl.create({
+      component: TermsAndConditionsModal,
+      backdropDismiss: true,
+      cssClass: ["modal-container","terms-and-conditions"]
+    });
+    await modal.present();
   }
 }

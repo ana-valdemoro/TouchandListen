@@ -1,0 +1,16 @@
+<div>
+  <h3>Términos y condiciones</h3>
+    <ion-list lines="none" mode="md">
+    <form [formGroup]="form" >
+      <ion-item>
+        <ion-checkbox (ionChange)="onSelectionChange($event, 'terms')"  formControlName="terms" slot="start" ></ion-checkbox>
+        <ion-label class="ion-text-wrap">Acepto los <a href="#">Términos y condiciones de Touch&Listen</a></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox (ionChange)="onSelectionChange($event, 'policy')" formControlName="policy" slot="start"></ion-checkbox>
+        <ion-label class="ion-text-wrap">Acepto la <a href="#">Política de Privacidad de Touch&Listen</a></ion-label>
+      </ion-item>
+    </form>
+  </ion-list>
+  <ion-button [disabled]="form.invalid" (click)="accept()">Regístrate</ion-button>
+</div>
