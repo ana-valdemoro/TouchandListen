@@ -6,6 +6,12 @@
 
 <ion-content>
   <div class="container">
+    <h1>Busca lo que quieras escuchar</h1>
+    <div class="search-box">
+      <i class="fas fa-search"  (click)="search()"></i>
+      <input class="search-txt" type="text" placeholder="Buscar" [(ngModel)]="searchText" (ngModelChange)="onResetIcon()">
+      <i *ngIf="resetSearch" class="fas fa-times"  (click)="onCleanSearchBar()"></i>
+    </div>
     <h1>Últimos lanzamientos</h1>
     <app-song-item  *ngFor="let song of songs" [song]="song"></app-song-item>
     <span *ngIf="songs && moreSongsExist"(click)="requesNextBatch()">Más canciones</span>
