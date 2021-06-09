@@ -30,6 +30,7 @@ export class SearchPage implements OnInit {
   }
   search(){
     console.log(this.searchText);
+    this.fireStore.searchBySongTitle(this.searchText);
   }
   onCleanSearchBar(){
     console.log("Limpiando");

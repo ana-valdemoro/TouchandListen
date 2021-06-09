@@ -33,4 +33,8 @@ export class FirestoreService {
   private savelastDocument(songsDoc: firebase.firestore.QuerySnapshot<unknown>) {
     this.lastDocument = songsDoc.docs[songsDoc.docs.length-1]
   }
+
+  public async  searchBySongTitle(title:string){
+
+  }
 }
