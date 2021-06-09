@@ -21,11 +21,13 @@ export class TermsAndConditionsModal implements OnInit {
   
   accept(){
     console.log("He aceptado");
+    this.modalController.dismiss({
+      terms: this.form.value.terms,
+      policy: this.form.value.policy,
+    })
   }
-  onSubmit(){
-    console.log(this.form.value);
-  }
-  onSelectionChange(e, controlName) {
+ 
+  onSelectionChange(e, controlName:string) {
     if(controlName == "terms"){
       let termsControl = this.form.get("terms");
       termsControl.setValue(!termsControl.value);
@@ -33,11 +35,5 @@ export class TermsAndConditionsModal implements OnInit {
       let policyControl = this.form.get("policy");
       policyControl.setValue(!policyControl.value);
     }
-   
-    // const checkboxArrayList: FormArray = this.ionicForm.get('checkboxArrayList') as FormArray;
-    // this.CHECK_LIST[i].checked = e.target.checked;
-    // this.updateCheckControl(checkboxArrayList, e.target);
-
-
   }
 }

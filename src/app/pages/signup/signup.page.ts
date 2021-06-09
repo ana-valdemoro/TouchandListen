@@ -38,7 +38,7 @@ export class SignupPage implements OnInit {
       return this.navCtrl.navigateRoot([ruta]);
     }
   }
-  async onSignUp(){
+  private async onSignUp(){
       this.authProvider.register(this.user)
         .then((user) => {
           if (user) this.onShowSuccesModal();
@@ -57,5 +57,12 @@ export class SignupPage implements OnInit {
       cssClass: ["modal-container","terms-and-conditions"]
     });
     await modal.present();
+    modal.onDidDismiss().then( res =>{
+      if(res.data !== undefined ){
+        const {terms, policy} = res.data;
+        if (terms == true && policy == true) this.onSignUp();
+      }
+    })
+
   }
 }

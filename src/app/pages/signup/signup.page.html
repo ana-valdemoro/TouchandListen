@@ -15,8 +15,7 @@
       <ion-input type="text" [(ngModel)]="user.phoneNumber" placeholder="Número de teléfono"></ion-input>
       <ion-input type="email" [(ngModel)]="user.email" placeholder="Correo electrónico"></ion-input>
       <app-password-input (passwordCompleted)="getPassword($event)"></app-password-input>
-      <!-- <ion-button [disabled]="onCheckFields()" (click)="onAceptTermsAndConditions()">Crear cuenta</ion-button> -->
-      <ion-button (click)="onAceptTermsAndConditions()">Crear cuenta</ion-button>
+      <ion-button [disabled]="onCheckFields()" (click)="onAceptTermsAndConditions()">Crear cuenta</ion-button>
     </div>
     
     <p>¿Ya tienes una cuenta? <span (click)="onSignIn()">Inicia sesión</span></p>
