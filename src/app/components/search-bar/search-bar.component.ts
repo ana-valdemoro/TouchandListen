@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISong } from 'src/app/models/song.model';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -14,6 +13,8 @@ export class SearchBarComponent implements OnInit {
   catalogObservable:  Observable<any>;
   searchText: string;
   resetSearch:boolean = false;
+  @Output() notifySearchPage = new EventEmitter<any>();  
+  @Output() resetSearchPage = new EventEmitter<any>();  
   
   constructor(private fireStore: FirestoreService) { }
 
@@ -26,12 +27,11 @@ export class SearchBarComponent implements OnInit {
   }
   //Búsqueda por título de canción;
   search(){
-    console.log(this.searchText);
     if(this.allCatalog != undefined){
       let array = this.allCatalog.filter(element =>{
         return element.name.toLowerCase().includes(this.searchText);
       });
-      console.log(array);
+      this.notifySearchPage.emit({searchText: this.searchText, songs: array});
     }
 
   }
@@ -39,6 +39,7 @@ export class SearchBarComponent implements OnInit {
     console.log("Limpiando");
     this.resetSearch = false; 
     this.searchText="";
+    this.resetSearchPage.emit(true);
   }
 
 }

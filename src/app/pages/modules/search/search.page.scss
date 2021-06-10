@@ -1,0 +1,24 @@
+
+ion-content{
+    .container{
+        justify-content:unset;
+        .no-results{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            .fa-frown{
+                margin-top: calc(100vh*0.045727) ;
+                color: #F2F2F2;
+                font-size: calc(100vh*0.31);
+                font-weight: 300;
+            }
+            h2{
+                margin-left: calc(100vw*0.1015);
+            }
+            p{
+                margin: 3.5% 3.5%;
+                text-align: center;
+            }
+        }
+    }
+}        
