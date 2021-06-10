@@ -5,11 +5,13 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { PlaylistItemComponent } from './playlist-item/playlist-item.component';
 import { SongItemComponent } from './song-item/song-item.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 const components = [
   PasswordInputComponent,
   PlaylistItemComponent,
-  SongItemComponent
+  SongItemComponent,
+  SearchBarComponent
 ];
 
 @NgModule({

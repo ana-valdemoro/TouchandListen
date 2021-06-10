@@ -34,7 +34,8 @@ export class FirestoreService {
     this.lastDocument = songsDoc.docs[songsDoc.docs.length-1]
   }
 
-  public async  searchBySongTitle(title:string){
-
+  public getAllSongs(){
+    return this.afs.collection('Songs').valueChanges();
   }
+
 }

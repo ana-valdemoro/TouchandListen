@@ -8,10 +8,10 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-   songs:ISong[]; 
-   moreSongsExist:boolean = true;
-   searchText: string;
-   resetSearch:boolean = false;
+  songs:ISong[]; 
+  moreSongsExist:boolean = true;
+
+
 
   constructor(private fireStore: FirestoreService) { }
 
@@ -24,19 +24,6 @@ export class SearchPage implements OnInit {
     this.fireStore.nextBatchOfSongs().then(songs => {
       songs.length!==0 ? this.songs = this.songs.concat(songs) : this.moreSongsExist=false;
     });
-  }
-  onResetIcon(){
-    this.resetSearch = true;
-  }
-  search(){
-    console.log(this.searchText);
-    this.fireStore.searchBySongTitle(this.searchText);
-  }
-  onCleanSearchBar(){
-    console.log("Limpiando");
-    this.resetSearch = false; 
-    this.searchText="";
-
   }
 
 }
