@@ -25,7 +25,7 @@ export class SearchBarComponent implements OnInit {
   onResetIcon(){
     this.resetSearch = true;
   }
-  //Búsqueda por título de canción;
+
   search(){
     if(this.allCatalog != undefined){
       let array = this.allCatalog.filter(element =>{
