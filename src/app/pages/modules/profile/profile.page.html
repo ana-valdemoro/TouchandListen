@@ -37,12 +37,6 @@
         <ion-input #email [ngModel]="user.email" class="input" type="email" [disabled]="emailEditionMode" ></ion-input>
         <i class="fas" [ngClass]="{'fa-pen': emailEditionMode, 'fa-save': !emailEditionMode}" (click)="onUpdateEmail(email.value)"></i>
       </div>
-      <hr class="separator">
-      <div class="profile-item">
-        <i class="fas fa-phone blue"></i>
-        <ion-input [ngModel]="user.phoneNumber" class="input" type="number" [disabled]="phoneNumberEditionMode" ></ion-input>
-        <i class="fas" [ngClass]="{'fa-pen': phoneNumberEditionMode, 'fa-save': !phoneNumberEditionMode}" (click)="this.phoneNumberEditionMode = !this.phoneNumberEditionMode"></i>
-      </div>
     </div>  
     <p>¿No te agrada la aplicación?<span (click)="onDeleteAccount()">Eliminar cuenta</span></p>
   </div>  

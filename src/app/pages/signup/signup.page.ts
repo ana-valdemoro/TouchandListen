@@ -45,7 +45,7 @@ export class SignupPage implements OnInit {
         });
   }
   onCheckFields(){
-    return !this.user.displayName || !this.user.phoneNumber || !this.user.email || !this.user.password;
+    return !this.user.displayName || !this.user.email || !this.user.password;
   }
   getPassword(password:string):void{
     this.user.password = password;

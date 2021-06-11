@@ -7,5 +7,4 @@ export interface IUser {
     password?: string;
     photoURL?: any;
     photObservable?: Observable<any>;
-    phoneNumber?: string;
 }
