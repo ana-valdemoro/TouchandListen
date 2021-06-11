@@ -105,14 +105,18 @@ export class ProfilePage implements OnInit {
   async onUpdateEmail(email:string){
     this.emailEditionMode = !this.emailEditionMode;
     if(email!==this.user.email && this.emailEditionMode== true){
-      let res = await this.UserProvider.updateEmail(email);
-      console.log(res);
-      if (res === true) {
-        this.onShowSuccessfulModal("email");
-      }else{
-        this.email.value = this.user.email;
-        this.onShowReStartSessionModal();
-      }
+      this.UserProvider.updateEmail(email)
+        .then( ()=>{
+          this.user.email = email;
+          this.onShowSuccessfulModal("email");
+        },
+        (err)=>{
+          console.log(err);
+          this.email.value = this.user.email;
+          if(err.code=="auth/invalid-email") this.onShowInvalidMailModal();
+          if(err.code == "auth/requires-recent-login") this.onShowReStartSessionModal()
+          
+        });
     }
   }
   async onShowSuccessfulModal(field: string){
@@ -254,5 +258,21 @@ export class ProfilePage implements OnInit {
  
     const blob = new Blob(byteArrays, { type: contentType });
     return blob;
+  }
+  async onShowInvalidMailModal(){
+    let modalData: IModalData = {
+      image: "fas fa-times-circle",
+      message: `Su email no ha podido ser actualizado`,
+      secondaryMessage:"El email no tiene un formato válido",
+      buttonMessage: ["Cerrar"],
+      navigationRoute: ""
+    };
+    const modal = await this.modalCtrl.create({
+      component: NavigationModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
   }
 }
