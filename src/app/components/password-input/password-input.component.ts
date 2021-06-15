@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -7,12 +8,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./password-input.component.scss'],
 })
 export class PasswordInputComponent implements OnInit {
+  passwordForm : FormGroup;
   passwordToggleIcon:string = "eye-off";
   showPassword:boolean = false;
   @Output() passwordCompleted = new EventEmitter();
-  password:string = ""  ;
-  constructor() { }
-
+  // password:string = ""  ;
+  constructor(private formBuilder: FormBuilder) { 
+    this.passwordForm = this.formBuilder.group({
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    
+    });
+  }
+  get password() { return this.passwordForm.get('password'); }
   ngOnInit() {}
   togglePassword():void{
     this.showPassword = !this.showPassword ;
@@ -22,7 +29,7 @@ export class PasswordInputComponent implements OnInit {
       this.passwordToggleIcon = "eye-off";
     }
   }
-  onBlurInput(){
-    this.passwordCompleted.emit(this.password);
+  onNotifyPassword(){
+    this.passwordCompleted.emit( {status: this.passwordForm.status ,password: this.password.value});
   }
 }
