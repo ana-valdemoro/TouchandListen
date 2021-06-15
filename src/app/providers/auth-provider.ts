@@ -15,6 +15,7 @@ export class AuthProvider {
 
   async login( email: string, password: string):Promise<firebase.User>{
     try{
+      console.log(password);
       const { user } = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
       this.setCurrentUser(user);
       return user;
@@ -22,17 +23,8 @@ export class AuthProvider {
       console.log("Error", error);
     }
   }  
-    async register(newUser: IUser){
-      try{
-        return this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
-          .then(userCredential => {
-            userCredential.user.updateProfile({displayName: newUser.displayName})
-            .catch(err => console.log("No se ha podido actualizar datos", err));
-            return userCredential.user;
-          });
-      }catch(error){
-          console.log("Error on sign up user:", error);
-      }
+    async register(newUser: IUser): Promise<firebase.auth.UserCredential>{
+        return this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
     }
     
     private setCurrentUser(user: IUser):void{

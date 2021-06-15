@@ -27,8 +27,8 @@ export class LoginPage implements OnInit {
   onSignInWith(){
 
   }
-  getPassword(password:string):void{
-    this.user.password = password;
+  getPassword(response:any):void{
+    this.user.password = response.password;
   }
   onCheckFields():boolean{
     return !this.user.email || !this.user.password;

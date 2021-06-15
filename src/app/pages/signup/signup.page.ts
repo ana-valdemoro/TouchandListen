@@ -6,6 +6,8 @@ import { IModalData } from 'src/app/models/modal-data.model';
 import { AuthProvider } from 'src/app/providers/auth-provider';
 import { TermsAndConditionsModal } from 'src/app/modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UserProvider } from 'src/app/providers/user-provider';
+import { NavigationModal } from 'src/app/modals/navigation-modal/navigation-modal.component';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +18,8 @@ export class SignupPage implements OnInit {
   user: IUser = {} as IUser;
   signUpForm : FormGroup;
   validPassword: boolean = false;
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private authProvider: AuthProvider, private formBuilder: FormBuilder) { 
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private authProvider: AuthProvider, private formBuilder: FormBuilder,
+    private userProvider: UserProvider) { 
     this.signUpForm = this.formBuilder.group({
       displayName: new FormControl('', [
         Validators.required,
@@ -58,9 +61,30 @@ export class SignupPage implements OnInit {
   }
   private async onSignUp(){
       this.authProvider.register(this.user)
-        .then((user) => {
-          if (user) this.onShowSuccesModal();
-        });
+        .then( userCredential =>{
+          this.userProvider.updateDisplayName(this.user.displayName, userCredential.user)
+            .then(res =>{
+              if(res == true) this.onShowSuccesModal(); 
+            })
+        }, err =>{
+          if(err.code == "auth/invalid-email") this.onShowFailureModal();
+        })
+  }
+  async onShowFailureModal() {
+    let modalData: IModalData = {
+      image: "fas  fa-exclamation-circle",
+      message: `No se ha podido crear su cuenta`,
+      secondaryMessage:"El email no tiene formato correcto",
+      buttonMessage: ["Cerrar"],
+      navigationRoute: ""
+    };
+    const modal = await this.modalCtrl.create({
+      component: NavigationModal,
+      backdropDismiss: true,
+      componentProps:{modalData : modalData},
+      cssClass: "modal-container"
+    });
+    await modal.present();
   }
   onCheckFields(){
     return !this.user.displayName || !this.user.email || !this.user.password;
