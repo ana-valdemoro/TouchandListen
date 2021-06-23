@@ -43,7 +43,7 @@
     font-weight: 400;
     color: #F2F2F2;
   }
-ion-content{
+  ion-content{
     --background: #331143;
     .container{
       display: flex;
@@ -51,6 +51,23 @@ ion-content{
       justify-content: space-between;
       align-items: center;
       min-height: 100%;
+      form{
+        ion-input{
+            --background: #AE37E5;
+            border-radius: 4px;
+            margin-top:calc(100vh*0.043478);
+            --padding-start: 10px;
+            // width: var(--input-with);
+            height:  44.8px;
+        }
+        ion-button{
+            --background: #F2F2F2;
+            margin: 27px 0px 4px 0px;
+            color: black;
+            display: flex;
+            --border-radius: 4px    
+        }
+      }
       h1{
         font-size: 22px;
         font-weight: 400;
@@ -84,7 +101,7 @@ ion-content{
     ion-title{
         font-size: 14px;
     }
-}
+  }
 .modal-container {
   --height: calc(100vh * 0.62);
   --width: calc(100vw * 0.792);
@@ -92,4 +109,7 @@ ion-content{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.terms-and-conditions{
+  --height: calc(100vh * 0.42);
 }

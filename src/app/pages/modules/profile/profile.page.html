@@ -2,35 +2,40 @@
   <ion-toolbar mode="ios">
     <ion-title>Cuenta</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="onLogOut()">Cerrar sesión</ion-button>
+      <ion-button (click)="onAskToLogOut()">Cerrar sesión</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container">
+  <div class="container" *ngIf="user">
     <div id="profile-header">
-      <img class="profile-photo" src='assets/images/defaultSong.jpg'>  
+      <img class="profile-photo" *ngIf="isImageLoaded" [src]="user.photoURL">  
+      <ion-fab>
+        <input
+        type="file"
+        #fileInput
+        (change)="manageFileFormat($event)"
+        hidden="true"
+        accept="image/*"
+      />  
+        <ion-fab-button (click)="selectImageSource()">
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </div>
-    <h1>Dua Lipa</h1>
+    <h1>{{user.displayName}}</h1>
     <div id="profile-information">
       <div class="profile-item">
         <i class="fas fa-user-circle blue"></i>
-        <ion-input [ngModel]="user.name" class="input" type="text" [disabled]="nameEditionMode" ></ion-input>
-        <i class="fas"  [ngClass]="{'fa-pen': nameEditionMode, 'fa-save': !nameEditionMode}" (click)="this.nameEditionMode = !this.nameEditionMode"></i>
+        <ion-input #displayName [ngModel]="user.displayName" class="input" type="text" [disabled]="nameEditionMode" ></ion-input>
+        <i class="fas"  [ngClass]="{'fa-pen': nameEditionMode, 'fa-save': !nameEditionMode}" (click)="onUpdateDisplayName(displayName.value)"></i>
       </div>
       <hr class="separator">
       <div class="profile-item">
         <i class="fas fa-envelope blue"></i>
-        <ion-input [ngModel]="user.email" class="input" type="text" [disabled]="emailEditionMode" ></ion-input>
-        <i class="fas" [ngClass]="{'fa-pen': emailEditionMode, 'fa-save': !emailEditionMode}" (click)="this.emailEditionMode = !this.emailEditionMode"></i>
-      </div>
-      <hr class="separator">
-      <div class="profile-item">
-        <i class="fas fa-lock blue"></i>
-        <ion-input [ngModel]="user.password" class="input" [type]="showPassword ? 'text' : 'password'" [disabled]="passwordEditionMode" ></ion-input>
-        <i class="fas" [ngStyle]="{'margin': this.showPassword ? '0px 7px' : '0px 6px' }" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="onToggleShowPassword()"></i>
-        <i class="fas" [ngStyle]="{'margin': this.passwordEditionMode ? '0px 6px' : '0px 7px' }" [ngClass]="{'fa-pen': passwordEditionMode, 'fa-save': !passwordEditionMode}" (click)="onTogglePasswordEditionMode()"></i>
+        <ion-input #email [ngModel]="user.email" class="input" type="email" [disabled]="emailEditionMode" ></ion-input>
+        <i class="fas" [ngClass]="{'fa-pen': emailEditionMode, 'fa-save': !emailEditionMode}" (click)="onUpdateEmail(email.value)"></i>
       </div>
     </div>  
     <p>¿No te agrada la aplicación?<span (click)="onDeleteAccount()">Eliminar cuenta</span></p>

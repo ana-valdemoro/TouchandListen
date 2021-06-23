@@ -3,4 +3,5 @@ export interface IModalData {
     message: string;
     buttonMessage: string[];
     navigationRoute: string;
+    secondaryMessage?:string;
 }

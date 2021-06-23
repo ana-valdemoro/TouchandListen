@@ -1,9 +1,11 @@
 .container{
+  justify-content: unset;
   .playing-item{
     background-color: #707070;
     width: calc(100vw*0.797);
     border-radius: 9px;
     display: flex;
+    margin: 5px 0px;
 
     #song-information{
       font-size: calc(100vh*0.022);

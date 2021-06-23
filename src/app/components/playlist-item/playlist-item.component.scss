@@ -6,7 +6,8 @@
     margin: calc(100vw*0.02) 0px;
 
     .track-information{
-        margin-left: calc(100vw*0.05);
+        // margin-left: calc(100vw*0.05);
+        flex-basis: calc(100vw*0.4);
         display: flex;
         flex-direction: column;
         flex-grow: 1;
@@ -18,11 +19,11 @@
         #artist-details{
             margin: 0px 0px;
             color: #331143;
-            margin-left: 16px;
+            // margin-left: 16px;
           }
         .track-details{
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
             align-items: center;
             p{
                 margin:0px;

@@ -7,16 +7,17 @@
 <ion-content >
   <div class="container">
     <h1>Reproduciendo</h1>
-    <div class="playing-item">
+    <div *ngIf="currentSong" class="playing-item">
       <div class="song-image">
         <img [src]="currentSong?.photoURL? currentSong.photoURL :'assets/images/defaultSong.jpg'">
+        <!-- <ion-button (click)="start(currentSong)">></ion-button> -->
       </div>
       <div id="song-information">
         <p>{{currentSong.name}}</p>
         <p id="artist-information" *ngFor="let artist of currentSong.artists">{{artist}}</p>
         <ion-range #range  max="100" [(ngModel)]="progress" >
-          <ion-label  slot="start">{{currentTime}}</ion-label>
-          <ion-label  slot="end">{{ duration }}</ion-label>
+          <ion-label  slot="start">{{formatTime(currentSong.currentTime)}}</ion-label>
+          <ion-label  slot="end">{{ formatTime(currentSong.duration) }}</ion-label>
         </ion-range>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   /*{
@@ -22,19 +23,16 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
-  },// }, {
-  //   path: 'modules',
-  //   //canActivate: [CompositeGuard],
-  //   /*data: {
-  //     redirectUrl: 'login',
-  //     routeGuards: [AuthGuard, HasSelectedAssociationGuard, HasSelectedFarmGuard],
-  //   },*/
-  //   loadChildren: () => import('./pages/modules/modules.module').then((m) => m.ModulesModule),
-  // },
+  },
   {
     path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
+    canLoad:[AuthGuard]
+  },  {
+    path: 'reset-password',
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
+
 
 
 ];

@@ -1,7 +1,10 @@
+import { Observable } from "rxjs";
+
 export interface IUser {
-    _id?: string;
-    name: string;
-    surname: string;
+    uid?: string;
     email: string;
-    password: string;
+    displayName?:string;
+    password?: string;
+    photoURL?: any;
+    photObservable?: Observable<any>;
 }
