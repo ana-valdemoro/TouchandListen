@@ -2,6 +2,12 @@
 ion-content{
     .container{
         justify-content:unset;
+        .last-releases{
+            display: flex;
+            flex-direction: column;
+            flex-grow: 2;
+            justify-content: space-around;
+        }
         .no-results{
             display: flex;
             align-items: center;
