@@ -13,21 +13,22 @@ export class AuthProvider {
   constructor(public angularFireAuth: AngularFireAuth){
   }
 
-  async login( email: string, password: string):Promise<firebase.User>{
-    try{
-      console.log(password);
-      const { user } = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-      this.setCurrentUser(user);
-      return user;
-    }catch(error){
-      console.log("Error", error);
-    }
+  async login( email: string, password: string):Promise<any>{
+    // try{
+    //   console.log(password);
+    //   const { user } = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
+    //   this.setCurrentUser(user);
+    //   return user;
+    // }catch(error){
+    //   console.log("Error", error);
+    // }
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password);
   }  
     async register(newUser: IUser): Promise<firebase.auth.UserCredential>{
         return this.angularFireAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
     }
     
-    private setCurrentUser(user: IUser):void{
+    public setCurrentUser(user: IUser):void{
         if(user) {
           this.currentUser.next(user);
           localStorage.setItem("currentUser", user.uid);

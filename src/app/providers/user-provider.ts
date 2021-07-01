@@ -32,20 +32,10 @@ export class UserProvider {
         return successfulEdition;
     }
     public async updateEmail (email:string){
-        // let successfulEdition = false;
         await this.angularFireAuth.currentUser
             .then( async user =>{
                 return await user.updateEmail(email)
-            });            
-
-
-
-            //         .then(() => successfulEdition = true);
-            //     }catch(err){
-            //         console.log(err);
-            //     }
-            // });
-       // return successfulEdition;    
+            });              
     }
 }
 
