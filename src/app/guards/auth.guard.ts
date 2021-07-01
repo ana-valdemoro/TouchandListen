@@ -23,10 +23,9 @@ export class AuthGuard implements CanLoad {
     }
 
   async canLoad() :Promise<boolean> {
-    // let storagedUserUID = localStorage.getItem("currentUser");
-    // if( this.currentUser && storagedUserUID == this.currentUser.uid) return true;
-    // this.navCtrl.navigateForward(['/login']);
-    // return false;
-    return true
+    let storagedUserUID = localStorage.getItem("currentUser");
+    if( this.currentUser && storagedUserUID == this.currentUser.uid) return true;
+    this.navCtrl.navigateForward(['/login']);
+    return false;
   }  
 }

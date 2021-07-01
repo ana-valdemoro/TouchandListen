@@ -13,6 +13,8 @@ import { AuthProvider } from 'src/app/providers/auth-provider';
 export class LoginPage implements OnInit {
   user: IUser = {} as IUser;
   cleanInput:boolean = false;
+  showPassword:boolean = false;
+  passwordToggleIcon:string = "eye-off";
   constructor(public navCtrl: NavController,  private authProvider: AuthProvider, private modalCtrl: ModalController) { }
 
   ngOnInit() {
@@ -73,15 +75,23 @@ export class LoginPage implements OnInit {
     this.user.email = "";
     this.user.password = "";
   }
+  togglePassword():void{
+    this.showPassword = !this.showPassword ;
+    if(this.passwordToggleIcon == "eye-off"){
+      this.passwordToggleIcon = "eye";
+    }else{
+      this.passwordToggleIcon = "eye-off";
+    }
+  }
   onSignUp(){
     this.navCtrl.navigateForward(['/signup']);
   }
   onSignInWith(){
 
   }
-  getPassword(response:any):void{
-    this.user.password = response.password;
-  }
+  // getPassword(response:any):void{
+  //   this.user.password = response.password;
+  // }
   onCheckFields():boolean{
     return !this.user.email || !this.user.password;
   }

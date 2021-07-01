@@ -14,14 +14,6 @@ export class AuthProvider {
   }
 
   async login( email: string, password: string):Promise<any>{
-    // try{
-    //   console.log(password);
-    //   const { user } = await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-    //   this.setCurrentUser(user);
-    //   return user;
-    // }catch(error){
-    //   console.log("Error", error);
-    // }
     return this.angularFireAuth.signInWithEmailAndPassword(email, password);
   }  
     async register(newUser: IUser): Promise<firebase.auth.UserCredential>{

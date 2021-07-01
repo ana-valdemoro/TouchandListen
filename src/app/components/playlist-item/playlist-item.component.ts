@@ -27,10 +27,8 @@ export class PlaylistItemComponent implements OnInit {
     if(this.thumbsUpToggleIcon == "far"){
       // this.thumbsUpToggleIcon = "fas";
       this.playlistProvider.addLikeToSong(this.track._id);
-      console.log("le hems dado like");
     }else{
       this.playlistProvider.deleteLikeToSong(this.track._id);
-      console.log("le hems uitado like");
     }
   }
   checkUserLike(){
