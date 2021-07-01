@@ -29,7 +29,7 @@ export class SearchBarComponent implements OnInit {
   search(){
     if(this.allCatalog != undefined){
       let array = this.allCatalog.filter(element =>{
-        return element.name.toLowerCase().includes(this.searchText);
+        return element.name.toLowerCase().includes(this.searchText.toLowerCase());
       });
       this.notifySearchPage.emit({searchText: this.searchText, songs: array});
     }
