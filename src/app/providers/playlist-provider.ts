@@ -59,9 +59,11 @@ export class PlaylistProvider{
 
     // }
     getPlaylistObservable (){
-        return this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", false).orderBy('likesCount', 'desc').orderBy('createdAt').limit(10)).valueChanges();
+        return this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", false).orderBy('likesCount', 'desc').orderBy('createdAt').limit(6)).valueChanges();
     }
-
+    getEntirePlaylistObservable (){
+        return this.afs.collection('Playlist', ref => ref.where("isPlaying", "==", false).orderBy('likesCount', 'desc').orderBy('createdAt')).valueChanges();
+    }
     addLikeToSong(idSong){
         // let idUser = localStorage.getItem("currentUser");
         this.afs.collection('Playlist').doc(idSong).update( {likes: firebase.firestore.FieldValue.arrayUnion(this.currentUser.uid), likesCount: firebase.firestore.FieldValue.increment(1)})
