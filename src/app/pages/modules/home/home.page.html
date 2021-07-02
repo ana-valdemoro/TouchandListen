@@ -25,5 +25,6 @@
     <div *ngFor="let playlistItem of playlist, let i=index">
       <app-playlist-item [track]="playlistItem" [index]="i"></app-playlist-item>
     </div>
+    <p (click)="onViewEntirePlaylist()">Ver playlist entera</p>
   </div>
 </ion-content>
