@@ -8,12 +8,5 @@ import firebase from 'firebase/app';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(
-    private router: Router
-  ) {
-    this.initializeApp();
-  }
-  initializeApp(){
-    //sthis.router.navigateByUrl('login'); //Esto no es muy buena usarlo porque cada  vez que reinicio la app me rederige aqui por defecto.
-  }
+  constructor(private router: Router) {}
 }

@@ -11,7 +11,7 @@
     <div class="last-releases" *ngIf="!noSearch">
       <h1 [ngStyle]="{'margin-left':'0px'}" >Últimos lanzamientos</h1>
       <app-song-item  *ngFor="let song of songs" [song]="song"></app-song-item>
-      <span *ngIf="songs && moreSongsExist"(click)="requesNextBatch()">Más canciones</span>
+      <p [ngStyle]="{'text-align':'center'}"*ngIf="songs && moreSongsExist"(click)="requesNextBatch()">Más canciones</p>
       <h3 *ngIf="!songs">"No hay canciones descargadas"</h3>
     </div>
     <div *ngIf="noSearch && noResults">
