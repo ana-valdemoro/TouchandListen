@@ -87,7 +87,7 @@ export class ProfilePage implements OnInit {
     await modal.present();
     const  ruta  =  (await modal.onDidDismiss()).data;
     if(ruta) { 
-      this.navCtrl.navigateForward ([ruta]);
+      this.navCtrl.navigateForward ([modalData.navigationRoute]);
     }
   }
   async onUpdateDisplayName(newDisplayName:string){
@@ -172,7 +172,8 @@ export class ProfilePage implements OnInit {
 
   async selectImageSource(){
     const buttons = [
-      {
+      { 
+        color: 'primary'  ,
         text: 'Hacer una foto',
         icon: 'camera',
         handler: () => {
@@ -199,6 +200,7 @@ export class ProfilePage implements OnInit {
     }  
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Foto de perfil',
+      cssClass: 'my-custom-class',
       buttons
     });
     await actionSheet.present();
