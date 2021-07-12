@@ -9,7 +9,11 @@
     <i class="fas fa-door-open"></i>
     <form>
       <ion-input type="email" [(ngModel)]="user.email" placeholder="Correo electrónico"></ion-input>
-      <app-password-input (passwordCompleted)="getPassword($event)"></app-password-input>
+      <div class="input-container">
+        <input [type]="showPassword ? 'text' : 'password'"  placeholder="Contraseña" [(ngModel)]="user.password">
+        <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+      </div>
+      <!-- <app-password-input (passwordCompleted)="getPassword($event)"></app-password-input> -->
       <ion-button mode="ios" [disabled] = "onCheckFields()" (click)="onSignIn()">Iniciar sesión</ion-button>
     </form>
     <p>¿Olvidaste tu contraseña? <span (click) ="onResetPasswordView()">Recuperar contraseña</span></p>

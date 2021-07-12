@@ -14,7 +14,7 @@ export class PlaylistPage implements OnInit {
   constructor(private playlistProvider :  PlaylistProvider) { }
 
   ngOnInit() {
-    this.playlistObservable = this.playlistProvider.getPlaylistObservable();
+    this.playlistObservable = this.playlistProvider.getEntirePlaylistObservable();
     this.playlistObservable.subscribe(songs =>this.playlist = songs );
   }
 }

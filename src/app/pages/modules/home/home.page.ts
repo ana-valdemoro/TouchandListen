@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
 })
 export class HomePage implements OnInit {
   currentSong: ISong;
-  currentSongIsLoaded:boolean  = false;
   playlist:ISong[];
   isPlaying:boolean = false;
   progress: number = 0;
@@ -23,18 +22,15 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.currentSongObservable = this.playlistProvider.getPlayingSong();
     this.currentSongObservable.subscribe(song =>{
-        //console.log(song);
         this.currentSong = song[0];
         if(song.length == 1){
-          this.currentSongIsLoaded = true;
           this.progress = (this.currentSong.currentTime / this.currentSong.duration ) * 100 || 0;
         }
       });
       this.playlistObservable = this.playlistProvider.getPlaylistObservable();
       this.playlistObservable.subscribe(songs =>this.playlist = songs );
-
-      
   }
+
   constructor(public navCtrl: NavController, private fireStore: FirestoreService, private playlistProvider :  PlaylistProvider) {}
 
   public formatTime(milisecs: number):string {

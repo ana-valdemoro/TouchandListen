@@ -1,5 +1,5 @@
 <div class="search-box">
   <i class="fas fa-search"  (click)="search()"></i>
-  <input class="search-txt" (blur)="search()" type="text" placeholder="Canciones o artistas" [(ngModel)]="searchText" (ngModelChange)="onResetIcon()">
+  <input class="search-txt" (blur)="search()" type="text" placeholder="Título" [(ngModel)]="searchText" (ngModelChange)="onResetIcon()">
   <i *ngIf="resetSearch" class="fas fa-times"  (click)="onCleanSearchBar()"></i>
 </div>  

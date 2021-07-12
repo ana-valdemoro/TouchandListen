@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { NotificationModal } from 'src/app/modals/notification-modal/notification-modal.component';
-import { SelectOptionModal } from 'src/app/modals/select-option-modal/select-option-modal.component';
 import { IModalData } from 'src/app/models/modal-data.model';
 import { ISong } from 'src/app/models/song.model';
 import { PlaylistProvider } from 'src/app/providers/playlist-provider';
@@ -31,20 +30,20 @@ export class SongItemComponent implements OnInit {
     let modalData: IModalData = {
       image: "fas fa-check-circle",
       message: "Canción añadida a la playlist correctamente",
-      buttonMessage: ["Seguir buscando canciones", "Ver posición en la playlist"],
+      buttonMessage: ["Cerrar"],
       navigationRoute: "/login"
     };
     const modal = await this.modalCtrl.create({
-      component: SelectOptionModal,
+      component: NotificationModal,
       backdropDismiss: true,
       componentProps:{modalData : modalData},
       cssClass: "modal-container"
     });
     await modal.present();
-    const  ruta  =  (await modal.onDidDismiss()).data;
-    if(ruta) { 
-      return this.navCtrl.navigateRoot([ruta]);
-    }
+    // const  ruta  =  (await modal.onDidDismiss()).data;
+    // if(ruta) { 
+    //   return this.navCtrl.navigateRoot([ruta]);
+    // }
   }
   async onShowFailureModal(){
     let modalData: IModalData = {

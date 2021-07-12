@@ -16,7 +16,7 @@ export class FirestoreService {
   //   return (await this.afs.collection('Songs').doc(id).get().toPromise()).data();
   // }
   async getInitSongs(){
-    const songs = (await this.afs.collection('Songs', ref => ref.limit(4)).get()).toPromise();
+    const songs = (await this.afs.collection('Songs', ref => ref.orderBy('AditionDate', 'desc').limit(4)).get()).toPromise();
     return songs.then((songs)=>{
       this.savelastDocument(songs);
       return ISongService.transformFromDocToISong(songs);
@@ -24,7 +24,7 @@ export class FirestoreService {
 
   }
   public async nextBatchOfSongs():Promise<ISong[]>{
-    const songs = (this.afs.collection('Songs', ref => ref.startAfter(this.lastDocument).limit(4)).get()).toPromise();
+    const songs = (this.afs.collection('Songs', ref => ref.orderBy('AditionDate', 'desc').startAfter(this.lastDocument).limit(4)).get()).toPromise();
     return songs.then((songs)=>{
       this.savelastDocument(songs);
       return ISongService.transformFromDocToISong(songs);
