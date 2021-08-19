@@ -14,3 +14,4 @@ Seguido, se debe instalar todas las dependencias del proyecto, por lo que ejecut
 `npm install`
 ## Notas
 Esta primera versión de la aplicación está concebida para que unicamente sea utilizada por un local y su conjunto de usuarios.
+Para una mejor visualización del proyecto, se recomienda visualizar la aplicación a tamaño de pantalla móvil.
